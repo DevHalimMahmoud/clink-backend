@@ -1,9 +1,6 @@
 package com.abdelhalim.egypt.clinics.clinic.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Clinic {
@@ -46,6 +43,5 @@ public class Clinic {
         this.phoneNumber = phoneNumber;
     }
 
-    // getters and setters
 
 }
