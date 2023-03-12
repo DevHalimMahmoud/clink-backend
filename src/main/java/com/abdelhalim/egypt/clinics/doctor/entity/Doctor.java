@@ -20,6 +20,10 @@ public class Doctor {
     private Clinic clinic;
 
 
+    public Doctor() {
+
+    }
+
     public Clinic getClinic() {
         return clinic;
     }
