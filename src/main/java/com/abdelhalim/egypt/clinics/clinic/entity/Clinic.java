@@ -1,4 +1,4 @@
-package com.abdelhalim.egypt.clinics.entity;
+package com.abdelhalim.egypt.clinics.clinic.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,5 +1,7 @@
-package com.abdelhalim.egypt.clinics.entity;
+package com.abdelhalim.egypt.clinics.doctor.entity;
 
+import com.abdelhalim.egypt.clinics.clinic.entity.Clinic;
+import com.abdelhalim.egypt.clinics.speciality.entity.Specialty;
 import jakarta.persistence.*;
 
 @Entity
