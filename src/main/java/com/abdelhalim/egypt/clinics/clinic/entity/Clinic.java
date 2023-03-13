@@ -1,9 +1,9 @@
 package com.abdelhalim.egypt.clinics.clinic.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.abdelhalim.egypt.clinics.address.entity.Address;
+import com.abdelhalim.egypt.clinics.doctor.entity.Doctor;
+import com.abdelhalim.egypt.clinics.speciality.entity.Specialty;
+import jakarta.persistence.*;
 
 @Entity
 public class Clinic {
@@ -11,8 +11,17 @@ public class Clinic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String address;
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
     private String phoneNumber;
+    @ManyToOne
+    @JoinColumn(name = "specialty_id")
+    private Specialty specialty;
+
+    @OneToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
     public int getId() {
         return id;
@@ -30,11 +39,11 @@ public class Clinic {
         this.name = name;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
@@ -47,4 +56,19 @@ public class Clinic {
     }
 
 
+    public Specialty getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 }

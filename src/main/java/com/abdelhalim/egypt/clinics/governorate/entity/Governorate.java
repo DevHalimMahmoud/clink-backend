@@ -1,4 +1,4 @@
-package com.abdelhalim.egypt.clinics.doctor.entity;
+package com.abdelhalim.egypt.clinics.governorate.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,15 +6,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Doctor {
+public class Governorate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    public Doctor() {
+    public Governorate() {
 
     }
+
 
     public String getName() {
         return name;
