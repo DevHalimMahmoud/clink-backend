@@ -10,10 +10,12 @@ public class Clinic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false)
     private String name;
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
+    @Column(nullable = false)
     private String phoneNumber;
     @ManyToOne
     @JoinColumn(name = "specialty_id")
