@@ -1,7 +1,7 @@
-package com.abdelhalim.egypt.clinics.doctor.controler;
+package com.abdelhalim.egypt.clinics.address.controller;
 
-import com.abdelhalim.egypt.clinics.doctor.entity.Doctor;
-import com.abdelhalim.egypt.clinics.doctor.repository.DoctorRepository;
+import com.abdelhalim.egypt.clinics.address.entity.Address;
+import com.abdelhalim.egypt.clinics.address.repository.AddressRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,22 +12,22 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/doctor")
-public class DoctorController {
+@RequestMapping("/address")
+public class AddressController {
 
-    private final DoctorRepository doctorRepository;
+    private final AddressRepository addressRepository;
 
 
-    public DoctorController(DoctorRepository doctorRepository) {
-        this.doctorRepository = doctorRepository;
+    public AddressController(AddressRepository addressRepository) {
+        this.addressRepository = addressRepository;
     }
 
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor doctor) {
-        Optional<Doctor> optional = doctorRepository.findById(doctor.getId());
+    public ResponseEntity<Address> addDoctor(@RequestBody Address address) {
+        Optional<Address> optional = addressRepository.findById(address.getId());
         if (optional.isEmpty()) {
-            return ResponseEntity.ok(doctorRepository.save(doctor));
+            return ResponseEntity.ok(addressRepository.save(address));
         } else {
             return ResponseEntity.badRequest().build();
         }
