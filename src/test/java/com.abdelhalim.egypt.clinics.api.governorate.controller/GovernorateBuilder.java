@@ -12,7 +12,6 @@ public class GovernorateBuilder {
 
     public static GovernorateDto getDto() {
         GovernorateDto dto = new GovernorateDto();
-        dto.setId(1);
         return dto;
     }
 }

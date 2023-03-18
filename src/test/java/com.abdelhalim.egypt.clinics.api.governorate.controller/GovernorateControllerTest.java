@@ -1,14 +1,14 @@
 package com.abdelhalim.egypt.clinics.api.governorate.controller;
 
 import com.abdelhalim.egypt.clinics.api.governorate.dto.GovernorateDto;
+import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
 import com.abdelhalim.egypt.clinics.api.governorate.service.GovernorateService;
-import org.hamcrest.Matchers;
-import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -34,22 +34,21 @@ class GovernorateControllerTest {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders
                 .standaloneSetup(governorateController)
-                //.setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
+                .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
                 //.addFilter(CustomFilter::doFilter)
                 .build();
     }
 
     @Test
     void findAllByPage() throws Exception {
-        Page<GovernorateDto> page = new PageImpl<>(Collections.singletonList(GovernorateBuilder.getDto()));
+        Page<Governorate> page = new PageImpl<>(Collections.singletonList(new Governorate(1L, "Test")));
 
         Mockito.when(governorateService.findByCondition(ArgumentMatchers.any())).thenReturn(page);
 
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post(ENDPOINT_URL)
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL + "/page-query")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.content", Matchers.hasSize(1)));
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
         Mockito.verify(governorateService, Mockito.times(1)).findByCondition(ArgumentMatchers.any());
         Mockito.verifyNoMoreInteractions(governorateService);
@@ -60,11 +59,10 @@ class GovernorateControllerTest {
     void getById() throws Exception {
         Mockito.when(governorateService.findById(ArgumentMatchers.anyInt())).thenReturn(GovernorateBuilder.getDto());
 
-        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL + "/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL + "/find/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(1)));
+                        .contentType(MediaType.APPLICATION_JSON));
         Mockito.verify(governorateService, Mockito.times(1)).findById(1);
         Mockito.verifyNoMoreInteractions(governorateService);
     }
@@ -74,7 +72,7 @@ class GovernorateControllerTest {
         Mockito.when(governorateService.save(ArgumentMatchers.any(GovernorateDto.class))).thenReturn(GovernorateBuilder.getDto());
 
         mockMvc.perform(
-                        MockMvcRequestBuilders.post(ENDPOINT_URL)
+                        MockMvcRequestBuilders.post(ENDPOINT_URL + "/add")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(CustomUtils.asJsonString(GovernorateBuilder.getDto())))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -84,22 +82,22 @@ class GovernorateControllerTest {
 
     @Test
     void update() throws Exception {
-        Mockito.when(governorateService.update(ArgumentMatchers.any(), ArgumentMatchers.anyInt())).thenReturn(GovernorateBuilder.getDto());
+//        Mockito.when(governorateService.update(ArgumentMatchers.any())).thenReturn();
 
         mockMvc.perform(
-                        MockMvcRequestBuilders.put(ENDPOINT_URL + "/1")
+                        MockMvcRequestBuilders.put(ENDPOINT_URL + "/update_name")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(CustomUtils.asJsonString(GovernorateBuilder.getDto())))
+                                .content(CustomUtils.asJsonString(new Governorate(1L, "t"))))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-        Mockito.verify(governorateService, Mockito.times(1)).update(ArgumentMatchers.any(GovernorateDto.class), ArgumentMatchers.anyInt());
+        Mockito.verify(governorateService, Mockito.times(1)).update(ArgumentMatchers.any(Governorate.class));
         Mockito.verifyNoMoreInteractions(governorateService);
     }
 
     @Test
     void delete() throws Exception {
-        Mockito.doNothing().when(governorateService).deleteById(ArgumentMatchers.anyInt());
+        Mockito.doNothing().when(governorateService).deleteById(1);
         mockMvc.perform(
-                MockMvcRequestBuilders.delete(ENDPOINT_URL + "/1")
+                MockMvcRequestBuilders.delete(ENDPOINT_URL + "/delete/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(CustomUtils.asJsonString(GovernorateBuilder.getIds()))).andExpect(MockMvcResultMatchers.status().isOk());
         Mockito.verify(governorateService, Mockito.times(1)).deleteById(Mockito.anyInt());

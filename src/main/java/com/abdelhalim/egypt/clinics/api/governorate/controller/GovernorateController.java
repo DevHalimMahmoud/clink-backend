@@ -1,6 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.governorate.controller;
 
 import com.abdelhalim.egypt.clinics.api.governorate.dto.GovernorateDto;
+import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
 import com.abdelhalim.egypt.clinics.api.governorate.service.GovernorateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -10,8 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RequestMapping("/api/governorate")
 @RestController
@@ -24,34 +23,33 @@ public class GovernorateController {
         this.governorateService = governorateService;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Void> save(@RequestBody @Validated GovernorateDto governorateDto) {
         governorateService.save(governorateDto);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public ResponseEntity<GovernorateDto> findById(@PathVariable("id") int id) {
         GovernorateDto governorate = governorateService.findById(id);
         return ResponseEntity.ok(governorate);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") int id) {
-        Optional.ofNullable(governorateService.findById(id)).orElseThrow();
         governorateService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/page-query")
-    public ResponseEntity<Page<GovernorateDto>> pageQuery( @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<GovernorateDto> governoratePage = governorateService.findByCondition(pageable);
+    public ResponseEntity<Page<Governorate>> pageQuery(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<Governorate> governoratePage = governorateService.findByCondition(pageable);
         return ResponseEntity.ok(governoratePage);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody @Validated GovernorateDto governorateDto, @PathVariable("id") int id) {
-        governorateService.update(governorateDto, id);
+    @PutMapping("/update_name")
+    public ResponseEntity<Void> update(@RequestBody @Validated Governorate governorate) {
+        governorateService.update(governorate);
         return ResponseEntity.ok().build();
     }
 }

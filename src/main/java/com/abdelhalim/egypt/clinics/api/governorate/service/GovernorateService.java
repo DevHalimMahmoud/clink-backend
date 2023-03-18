@@ -1,6 +1,5 @@
 package com.abdelhalim.egypt.clinics.api.governorate.service;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.abdelhalim.egypt.clinics.api.governorate.dto.GovernorateDto;
 import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
 import com.abdelhalim.egypt.clinics.api.governorate.mapper.GovernorateMapper;
@@ -39,16 +38,14 @@ public class GovernorateService {
         return governorateMapper.toDto(repository.findById(id).orElseThrow());
     }
 
-    public Page<GovernorateDto> findByCondition( Pageable pageable) {
+    public Page<Governorate> findByCondition(Pageable pageable) {
         Page<Governorate> entityPage = repository.findAll(pageable);
         List<Governorate> entities = entityPage.getContent();
-        return new PageImpl<>(governorateMapper.toDto(entities), pageable, entityPage.getTotalElements());
+        return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
     }
 
-    public GovernorateDto update(GovernorateDto governorateDto, int id) {
-        GovernorateDto data = findById(id);
-        Governorate entity = governorateMapper.toEntity(governorateDto);
-        BeanUtil.copyProperties(data, entity);
-        return save(governorateMapper.toDto(entity));
+    public Void update(Governorate governorate) {
+
+        return repository.updateNameById(governorate.getName(), governorate.getId());
     }
 }
