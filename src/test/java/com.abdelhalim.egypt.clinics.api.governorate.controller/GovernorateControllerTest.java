@@ -31,7 +31,7 @@ class GovernorateControllerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders
                 .standaloneSetup(governorateController)
                 //.setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
@@ -43,15 +43,15 @@ class GovernorateControllerTest {
     void findAllByPage() throws Exception {
         Page<GovernorateDto> page = new PageImpl<>(Collections.singletonList(GovernorateBuilder.getDto()));
 
-        Mockito.when(governorateService.findByCondition(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(page);
+        Mockito.when(governorateService.findByCondition(ArgumentMatchers.any())).thenReturn(page);
 
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL)
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post(ENDPOINT_URL)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.content", Matchers.hasSize(1)));
 
-        Mockito.verify(governorateService, Mockito.times(1)).findByCondition(ArgumentMatchers.any(), ArgumentMatchers.any());
+        Mockito.verify(governorateService, Mockito.times(1)).findByCondition(ArgumentMatchers.any());
         Mockito.verifyNoMoreInteractions(governorateService);
 
     }

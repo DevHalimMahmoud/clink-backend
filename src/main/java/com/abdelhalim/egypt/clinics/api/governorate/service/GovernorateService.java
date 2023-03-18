@@ -39,7 +39,7 @@ public class GovernorateService {
         return governorateMapper.toDto(repository.findById(id).orElseThrow());
     }
 
-    public Page<GovernorateDto> findByCondition(GovernorateDto governorateDto, Pageable pageable) {
+    public Page<GovernorateDto> findByCondition( Pageable pageable) {
         Page<Governorate> entityPage = repository.findAll(pageable);
         List<Governorate> entities = entityPage.getContent();
         return new PageImpl<>(governorateMapper.toDto(entities), pageable, entityPage.getTotalElements());

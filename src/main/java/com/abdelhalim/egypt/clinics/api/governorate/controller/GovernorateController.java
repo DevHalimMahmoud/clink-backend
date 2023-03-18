@@ -44,8 +44,8 @@ public class GovernorateController {
     }
 
     @GetMapping("/page-query")
-    public ResponseEntity<Page<GovernorateDto>> pageQuery(GovernorateDto governorateDto, @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<GovernorateDto> governoratePage = governorateService.findByCondition(governorateDto, pageable);
+    public ResponseEntity<Page<GovernorateDto>> pageQuery( @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<GovernorateDto> governoratePage = governorateService.findByCondition(pageable);
         return ResponseEntity.ok(governoratePage);
     }
 

@@ -1,8 +1,6 @@
 package com.abdelhalim.egypt.clinics.api.governorate.dto;
 
-import com.abdelhalim.egypt.clinics.base.AbstractDto;
-
-public class GovernorateDto extends AbstractDto<Integer> {
+public class GovernorateDto {
     private int id;
     private String name;
 
