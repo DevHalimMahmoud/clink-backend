@@ -44,8 +44,8 @@ public class GovernorateService {
         return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
     }
 
-    public Void update(Governorate governorate) {
+    public void update(Governorate governorate) {
 
-        return repository.updateNameById(governorate.getName(), governorate.getId());
+        repository.updateNameById(governorate.getName(), governorate.getId());
     }
 }

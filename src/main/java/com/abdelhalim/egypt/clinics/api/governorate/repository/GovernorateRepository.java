@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface GovernorateRepository extends JpaRepository<Governorate, Integer>, JpaSpecificationExecutor<Governorate> {
     @Modifying
     @Query("update Governorate g set g.name = ?1 where g.id = ?2")
-    Void updateNameById(String name, Long id);
+    void updateNameById(String name, Long id);
 
 
 }
