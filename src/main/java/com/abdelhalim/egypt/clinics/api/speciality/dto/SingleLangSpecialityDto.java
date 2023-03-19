@@ -1,12 +1,16 @@
 package com.abdelhalim.egypt.clinics.api.speciality.dto;
 
-public class SpecialityDto {
+public class SingleLangSpecialityDto {
+
 
     private String name;
 
-    public SpecialityDto() {
+    public SingleLangSpecialityDto() {
     }
 
+    public SingleLangSpecialityDto(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return this.name;
@@ -15,4 +19,5 @@ public class SpecialityDto {
     public void setName(String name) {
         this.name = name;
     }
+
 }

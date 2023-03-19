@@ -1,8 +1,10 @@
 package com.abdelhalim.egypt.clinics.api.speciality.service;
 
-import com.abdelhalim.egypt.clinics.api.speciality.dto.SpecialityDto;
+import com.abdelhalim.egypt.clinics.api.speciality.dto.MultiLangSpecialityDto;
+import com.abdelhalim.egypt.clinics.api.speciality.dto.SingleLangSpecialityDto;
 import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
-import com.abdelhalim.egypt.clinics.api.speciality.mapper.SpecialityMapper;
+import com.abdelhalim.egypt.clinics.api.speciality.mapper.MultiLangSpecialityMapper;
+import com.abdelhalim.egypt.clinics.api.speciality.mapper.SingleLangSpecialityMapper;
 import com.abdelhalim.egypt.clinics.api.speciality.repository.SpecialtyRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -21,19 +23,27 @@ public class SpecialtyService {
     @Autowired
     private SpecialtyRepository repository;
     @Autowired
-    private SpecialityMapper governorateMapper;
+    private MultiLangSpecialityMapper multiLangSpecialityMapper;
+    @Autowired
+    private SingleLangSpecialityMapper singleLangSpecialityMapper;
 
-    public void save(SpecialityDto specialityDto) {
-        Specialty entity = governorateMapper.toEntity(specialityDto);
-        governorateMapper.toDto(repository.save(entity));
+    public void save(MultiLangSpecialityDto multiLangSpecialityDto) {
+        Specialty entity = multiLangSpecialityMapper.toEntity(multiLangSpecialityDto);
+        multiLangSpecialityMapper.toDto(repository.save(entity));
     }
 
     public void deleteById(int id) {
         repository.deleteById(id);
     }
 
-    public SpecialityDto findById(int id) {
-        return governorateMapper.toDto(repository.findById(id).orElseThrow());
+    public SingleLangSpecialityDto findById(int id, String language) {
+        Specialty specialty = repository.findById(id).orElseThrow();
+        if (language.equals("ar")) {
+            return new SingleLangSpecialityDto(specialty.getName_ar());
+        } else {
+            return new SingleLangSpecialityDto(specialty.getName());
+        }
+
     }
 
     public Page<Specialty> findByCondition(Pageable pageable) {
