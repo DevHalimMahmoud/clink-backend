@@ -6,6 +6,7 @@ import com.abdelhalim.egypt.clinics.api.speciality.mapper.SpecialityMapper;
 import com.abdelhalim.egypt.clinics.api.speciality.repository.SpecialtyRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -17,13 +18,10 @@ import java.util.List;
 @Service
 @Transactional
 public class SpecialtyService {
-    private final SpecialtyRepository repository;
-    private final SpecialityMapper governorateMapper;
-
-    public SpecialtyService(SpecialtyRepository repository, SpecialityMapper governorateMapper) {
-        this.repository = repository;
-        this.governorateMapper = governorateMapper;
-    }
+    @Autowired
+    private SpecialtyRepository repository;
+    @Autowired
+    private SpecialityMapper governorateMapper;
 
     public void save(SpecialityDto specialityDto) {
         Specialty entity = governorateMapper.toEntity(specialityDto);

@@ -6,6 +6,7 @@ import com.abdelhalim.egypt.clinics.api.governorate.mapper.GovernorateMapper;
 import com.abdelhalim.egypt.clinics.api.governorate.repository.GovernorateRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -17,13 +18,10 @@ import java.util.List;
 @Service
 @Transactional
 public class GovernorateService {
-    private final GovernorateRepository repository;
-    private final GovernorateMapper governorateMapper;
-
-    public GovernorateService(GovernorateRepository repository, GovernorateMapper governorateMapper) {
-        this.repository = repository;
-        this.governorateMapper = governorateMapper;
-    }
+    @Autowired
+    private GovernorateRepository repository;
+    @Autowired
+    private GovernorateMapper governorateMapper;
 
     public GovernorateDto save(GovernorateDto governorateDto) {
         Governorate entity = governorateMapper.toEntity(governorateDto);

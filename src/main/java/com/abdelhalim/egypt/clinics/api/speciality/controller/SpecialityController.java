@@ -4,6 +4,7 @@ import com.abdelhalim.egypt.clinics.api.speciality.dto.SpecialityDto;
 import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
 import com.abdelhalim.egypt.clinics.api.speciality.service.SpecialtyService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,12 +17,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 public class SpecialityController {
+    @Autowired
+    private SpecialtyService specialtyService;
 
-    private final SpecialtyService specialtyService;
-
-    public SpecialityController(SpecialtyService specialtyService) {
-        this.specialtyService = specialtyService;
-    }
 
     @PostMapping("/add")
     public ResponseEntity<Void> save(@RequestBody @Validated SpecialityDto specialityDto) {

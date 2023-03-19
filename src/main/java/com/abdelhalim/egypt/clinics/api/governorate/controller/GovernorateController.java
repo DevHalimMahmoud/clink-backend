@@ -4,6 +4,7 @@ import com.abdelhalim.egypt.clinics.api.governorate.dto.GovernorateDto;
 import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
 import com.abdelhalim.egypt.clinics.api.governorate.service.GovernorateService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,12 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 public class GovernorateController {
-
-    private final GovernorateService governorateService;
-
-    public GovernorateController(GovernorateService governorateService) {
-        this.governorateService = governorateService;
-    }
+    @Autowired
+    private GovernorateService governorateService;
 
     @PostMapping("/add")
     public ResponseEntity<Void> save(@RequestBody @Validated GovernorateDto governorateDto) {
