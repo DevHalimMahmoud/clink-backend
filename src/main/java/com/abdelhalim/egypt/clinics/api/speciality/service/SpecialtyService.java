@@ -1,10 +1,8 @@
 package com.abdelhalim.egypt.clinics.api.speciality.service;
 
 import com.abdelhalim.egypt.clinics.api.speciality.dto.MultiLangSpecialityDto;
-import com.abdelhalim.egypt.clinics.api.speciality.dto.SingleLangSpecialityDto;
 import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
 import com.abdelhalim.egypt.clinics.api.speciality.mapper.MultiLangSpecialityMapper;
-import com.abdelhalim.egypt.clinics.api.speciality.mapper.SingleLangSpecialityMapper;
 import com.abdelhalim.egypt.clinics.api.speciality.repository.SpecialtyRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +22,7 @@ public class SpecialtyService {
     private SpecialtyRepository repository;
     @Autowired
     private MultiLangSpecialityMapper multiLangSpecialityMapper;
-    @Autowired
-    private SingleLangSpecialityMapper singleLangSpecialityMapper;
+
 
     public void save(MultiLangSpecialityDto multiLangSpecialityDto) {
         Specialty entity = multiLangSpecialityMapper.toEntity(multiLangSpecialityDto);
@@ -36,14 +33,9 @@ public class SpecialtyService {
         repository.deleteById(id);
     }
 
-    public SingleLangSpecialityDto findById(int id, String language) {
+    public MultiLangSpecialityDto findById(int id) {
         Specialty specialty = repository.findById(id).orElseThrow();
-        if (language.equals("ar")) {
-            return new SingleLangSpecialityDto(specialty.getName_ar());
-        } else {
-            return new SingleLangSpecialityDto(specialty.getName());
-        }
-
+            return multiLangSpecialityMapper.toDto(specialty);
     }
 
     public Page<Specialty> findByCondition(Pageable pageable) {

@@ -1,7 +1,6 @@
 package com.abdelhalim.egypt.clinics.api.speciality.controller;
 
 import com.abdelhalim.egypt.clinics.api.speciality.dto.MultiLangSpecialityDto;
-import com.abdelhalim.egypt.clinics.api.speciality.dto.SingleLangSpecialityDto;
 import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
 import com.abdelhalim.egypt.clinics.api.speciality.service.SpecialtyService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +27,9 @@ public class SpecialityController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SingleLangSpecialityDto> findById(@RequestHeader(HttpHeaders.ACCEPT_LANGUAGE) String language, @PathVariable("id") int id) {
-        SingleLangSpecialityDto singleLangSpecialityDto = specialtyService.findById(id, language);
-        return ResponseEntity.ok(singleLangSpecialityDto);
+    public ResponseEntity<MultiLangSpecialityDto> findById(@PathVariable("id") int id) {
+        MultiLangSpecialityDto multiLangSpecialityDto = specialtyService.findById(id);
+        return ResponseEntity.ok(multiLangSpecialityDto);
     }
 
     @DeleteMapping("/{id}")
