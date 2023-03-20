@@ -59,7 +59,7 @@ class GovernorateControllerTest {
     void getById() throws Exception {
         Mockito.when(governorateService.findById(ArgumentMatchers.anyInt())).thenReturn(GovernorateBuilder.getDto());
 
-        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL + "/find/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL + "/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentType(MediaType.APPLICATION_JSON));
@@ -72,7 +72,7 @@ class GovernorateControllerTest {
         Mockito.when(governorateService.save(ArgumentMatchers.any(GovernorateDto.class))).thenReturn(GovernorateBuilder.getDto());
 
         mockMvc.perform(
-                        MockMvcRequestBuilders.post(ENDPOINT_URL + "/add")
+                        MockMvcRequestBuilders.post(ENDPOINT_URL)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(CustomUtils.asJsonString(GovernorateBuilder.getDto())))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -85,7 +85,7 @@ class GovernorateControllerTest {
 //        Mockito.when(governorateService.update(ArgumentMatchers.any())).thenReturn();
 
         mockMvc.perform(
-                        MockMvcRequestBuilders.put(ENDPOINT_URL + "/update_name")
+                        MockMvcRequestBuilders.put(ENDPOINT_URL)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(CustomUtils.asJsonString(new Governorate(1L, "t"))))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -97,7 +97,7 @@ class GovernorateControllerTest {
     void delete() throws Exception {
         Mockito.doNothing().when(governorateService).deleteById(1);
         mockMvc.perform(
-                MockMvcRequestBuilders.delete(ENDPOINT_URL + "/delete/1")
+                MockMvcRequestBuilders.delete(ENDPOINT_URL + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(CustomUtils.asJsonString(GovernorateBuilder.getIds()))).andExpect(MockMvcResultMatchers.status().isOk());
         Mockito.verify(governorateService, Mockito.times(1)).deleteById(Mockito.anyInt());

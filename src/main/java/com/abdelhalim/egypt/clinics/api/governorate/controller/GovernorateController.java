@@ -20,19 +20,19 @@ public class GovernorateController {
     @Autowired
     private GovernorateService governorateService;
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Void> save(@RequestBody @Validated GovernorateDto governorateDto) {
         governorateService.save(governorateDto);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<GovernorateDto> findById(@PathVariable("id") int id) {
         GovernorateDto governorate = governorateService.findById(id);
         return ResponseEntity.ok(governorate);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") int id) {
         governorateService.deleteById(id);
         return ResponseEntity.ok().build();
@@ -44,7 +44,7 @@ public class GovernorateController {
         return ResponseEntity.ok(governoratePage);
     }
 
-    @PutMapping("/update_name")
+    @PutMapping
     public ResponseEntity<Void> update(@RequestBody @Validated Governorate governorate) {
         governorateService.update(governorate);
         return ResponseEntity.ok().build();

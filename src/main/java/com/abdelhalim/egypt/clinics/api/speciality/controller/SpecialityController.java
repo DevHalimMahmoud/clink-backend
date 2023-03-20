@@ -22,31 +22,31 @@ public class SpecialityController {
     @Autowired
     private SpecialtyService specialtyService;
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Void> save(@RequestBody @Validated MultiLangSpecialityDto multiLangSpecialityDto) {
         specialtyService.save(multiLangSpecialityDto);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<SingleLangSpecialityDto> findById(@RequestHeader(HttpHeaders.ACCEPT_LANGUAGE) String language, @PathVariable("id") int id) {
         SingleLangSpecialityDto singleLangSpecialityDto = specialtyService.findById(id, language);
         return ResponseEntity.ok(singleLangSpecialityDto);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") int id) {
         specialtyService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/page-query")
-    public ResponseEntity<Page<Specialty>> pageQuery(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+    public ResponseEntity<Page<Specialty>> pageQuery(@PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC, size = 20) Pageable pageable) {
         Page<Specialty> specialtyPage = specialtyService.findByCondition(pageable);
         return ResponseEntity.ok(specialtyPage);
     }
 
-    @PutMapping("/update_name")
+    @PutMapping
     public ResponseEntity<Void> update(@RequestBody @Validated Specialty specialty) {
         specialtyService.update(specialty);
         return ResponseEntity.ok().build();
