@@ -1,6 +1,6 @@
 package com.abdelhalim.egypt.clinics.api.speciality.controller;
 
-import com.abdelhalim.egypt.clinics.api.speciality.dto.MultiLangSpecialityDto;
+import com.abdelhalim.egypt.clinics.api.speciality.dto.SpecialityDto;
 import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
 import com.abdelhalim.egypt.clinics.api.speciality.service.SpecialtyService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,15 +21,15 @@ public class SpecialityController {
     private SpecialtyService specialtyService;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated MultiLangSpecialityDto multiLangSpecialityDto) {
-        specialtyService.save(multiLangSpecialityDto);
+    public ResponseEntity<Void> save(@RequestBody @Validated SpecialityDto specialityDto) {
+        specialtyService.save(specialityDto);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MultiLangSpecialityDto> findById(@PathVariable("id") int id) {
-        MultiLangSpecialityDto multiLangSpecialityDto = specialtyService.findById(id);
-        return ResponseEntity.ok(multiLangSpecialityDto);
+    public ResponseEntity<SpecialityDto> findById(@PathVariable("id") int id) {
+        SpecialityDto specialityDto = specialtyService.findById(id);
+        return ResponseEntity.ok(specialityDto);
     }
 
     @DeleteMapping("/{id}")

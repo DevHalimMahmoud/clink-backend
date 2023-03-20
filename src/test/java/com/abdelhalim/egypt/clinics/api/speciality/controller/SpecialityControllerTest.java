@@ -1,7 +1,6 @@
 package com.abdelhalim.egypt.clinics.api.speciality.controller;
 
-import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
-import com.abdelhalim.egypt.clinics.api.speciality.dto.MultiLangSpecialityDto;
+import com.abdelhalim.egypt.clinics.api.speciality.dto.SpecialityDto;
 import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
 import com.abdelhalim.egypt.clinics.api.speciality.service.SpecialtyService;
 import org.junit.jupiter.api.BeforeEach;
@@ -77,7 +76,7 @@ class SpecialityControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(CustomUtils.asJsonString(SpecialityBuilder.getDto())))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-        Mockito.verify(specialtyService, Mockito.times(1)).save(ArgumentMatchers.any(MultiLangSpecialityDto.class));
+        Mockito.verify(specialtyService, Mockito.times(1)).save(ArgumentMatchers.any(SpecialityDto.class));
         Mockito.verifyNoMoreInteractions(specialtyService);
     }
 
@@ -88,7 +87,7 @@ class SpecialityControllerTest {
         mockMvc.perform(
                         MockMvcRequestBuilders.put(ENDPOINT_URL)
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(CustomUtils.asJsonString(new Governorate(1L, "t"))))
+                                .content(CustomUtils.asJsonString(new Specialty(1L, "t", "test"))))
                 .andExpect(MockMvcResultMatchers.status().isOk());
         Mockito.verify(specialtyService, Mockito.times(1)).update(ArgumentMatchers.any(Specialty.class));
         Mockito.verifyNoMoreInteractions(specialtyService);

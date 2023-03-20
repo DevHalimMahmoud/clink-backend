@@ -1,7 +1,6 @@
 package com.abdelhalim.egypt.clinics.api.speciality.controller;
 
-import com.abdelhalim.egypt.clinics.api.governorate.dto.GovernorateDto;
-import com.abdelhalim.egypt.clinics.api.speciality.dto.MultiLangSpecialityDto;
+import com.abdelhalim.egypt.clinics.api.speciality.dto.SpecialityDto;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,8 +10,8 @@ public class SpecialityBuilder {
         return Collections.singletonList("1");
     }
 
-    public static MultiLangSpecialityDto getDto() {
-        MultiLangSpecialityDto dto = new MultiLangSpecialityDto();
+    public static SpecialityDto getDto() {
+        SpecialityDto dto = new SpecialityDto();
         return dto;
     }
 }

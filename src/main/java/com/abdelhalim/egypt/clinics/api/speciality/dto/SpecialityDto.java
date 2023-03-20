@@ -1,12 +1,12 @@
 package com.abdelhalim.egypt.clinics.api.speciality.dto;
 
-public class MultiLangSpecialityDto {
+public class SpecialityDto {
 
     private String name;
 
     private String name_ar;
 
-    public MultiLangSpecialityDto() {
+    public SpecialityDto() {
     }
 
 
