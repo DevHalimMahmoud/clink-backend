@@ -44,6 +44,6 @@ public class GovernorateService {
 
     public void update(Governorate governorate) {
 
-        repository.updateNameById(governorate.getName(), governorate.getId());
+        repository.updateNameAndName_arById(governorate.getName(), governorate.getName_ar(), governorate.getId());
     }
 }
