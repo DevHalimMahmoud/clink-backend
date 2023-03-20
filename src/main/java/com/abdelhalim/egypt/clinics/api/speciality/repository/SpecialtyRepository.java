@@ -13,6 +13,6 @@ public interface SpecialtyRepository extends JpaRepository<Specialty, Integer>, 
 
     @Modifying
     @Query("update Specialty s set s.name = ?1 where s.id = ?2")
-    void updateNameById(String name, int id);
+    void updateNameById(String name, Long id);
 
 }

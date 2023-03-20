@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Specialty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
@@ -15,11 +15,17 @@ public class Specialty {
     public Specialty() {
     }
 
-    public int getId() {
+    public Specialty(Long id, String name, String name_ar) {
+        this.id = id;
+        this.name = name;
+        this.name_ar = name_ar;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
