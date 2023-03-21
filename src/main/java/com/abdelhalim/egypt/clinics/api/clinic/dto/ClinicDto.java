@@ -1,35 +1,21 @@
-package com.abdelhalim.egypt.clinics.api.clinic.entity;
+package com.abdelhalim.egypt.clinics.api.clinic.dto;
 
 import com.abdelhalim.egypt.clinics.api.address.entity.Address;
 import com.abdelhalim.egypt.clinics.api.doctor.entity.Doctor;
 import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
-import jakarta.persistence.*;
 
-@Entity
-public class Clinic {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(nullable = false)
+public class ClinicDto {
+
     private String name;
-    @OneToOne
-    @JoinColumn(name = "address_id")
+
     private Address address;
-    @Column(nullable = false)
     private String phoneNumber;
-    @ManyToOne
-    @JoinColumn(name = "specialty_id")
+
     private Specialty specialty;
-    @OneToOne
-    @JoinColumn(name = "doctor_id")
+
     private Doctor doctor;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public ClinicDto() {
     }
 
     public String getName() {
