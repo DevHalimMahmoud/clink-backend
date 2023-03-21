@@ -1,11 +1,9 @@
 package com.abdelhalim.egypt.clinics.api.address.dto;
 
-import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
-
 public class AddressDto {
 
     private String name;
-    private Governorate governorate;
+    private Long governorate_id;
 
     public AddressDto() {
     }
@@ -18,11 +16,11 @@ public class AddressDto {
         this.name = name;
     }
 
-    public Governorate getGovernorate() {
-        return governorate;
+    public Long getGovernorate() {
+        return governorate_id;
     }
 
-    public void setGovernorate(Governorate governorate) {
-        this.governorate = governorate;
+    public void setGovernorate(Long governorate_id) {
+        this.governorate_id = governorate_id;
     }
 }

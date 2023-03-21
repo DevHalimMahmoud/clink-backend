@@ -1,6 +1,10 @@
 package com.abdelhalim.egypt.clinics.api.governorate.entity;
 
+import com.abdelhalim.egypt.clinics.api.address.entity.Address;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Governorate {
@@ -14,6 +18,9 @@ public class Governorate {
 
     @Column(nullable = false)
     private String name_ar;
+    @OneToMany
+    @JoinColumn(name = "address_id")
+    private final Set<Address> address_list = new HashSet<>();
 
     public Governorate() {
 

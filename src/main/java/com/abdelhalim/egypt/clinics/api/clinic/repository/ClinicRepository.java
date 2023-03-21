@@ -16,6 +16,6 @@ public interface ClinicRepository extends JpaRepository<Clinic, Integer>, JpaSpe
     @Query("""
             update Clinic c set c.name = ?1, c.address = ?2, c.phoneNumber = ?3, c.specialty = ?4, c.doctor = ?5
             where c.id = ?6""")
-    void updateNameAndAddressAndPhoneNumberAndSpecialtyAndDoctorById(String name, Address address, String phoneNumber, Specialty specialty, Doctor doctor, int id);
+    void updateNameAndAddressAndPhoneNumberAndSpecialtyAndDoctorById(String name, Address address, String phoneNumber, Specialty specialty, Doctor doctor, Long id);
 
 }

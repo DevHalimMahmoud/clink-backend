@@ -3,7 +3,6 @@ package com.abdelhalim.egypt.clinics.api.address.controller;
 import com.abdelhalim.egypt.clinics.api.address.dto.AddressDto;
 import com.abdelhalim.egypt.clinics.api.address.entity.Address;
 import com.abdelhalim.egypt.clinics.api.address.service.AddressService;
-import com.abdelhalim.egypt.clinics.api.doctor.entity.Doctor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

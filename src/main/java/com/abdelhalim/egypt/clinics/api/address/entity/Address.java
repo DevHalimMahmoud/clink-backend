@@ -7,12 +7,12 @@ import jakarta.persistence.*;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(nullable = false)
     private String name;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "governorate_id")
-    private Governorate governorate;
+    private Governorate governorateList;
 
     public Address() {
 
@@ -26,19 +26,19 @@ public class Address {
         this.name = name;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Governorate getGovernorate() {
-        return governorate;
+    public Governorate getGovernorateList() {
+        return governorateList;
     }
 
-    public void setGovernorate(Governorate governorate) {
-        this.governorate = governorate;
+    public void setGovernorateList(Governorate governorateList) {
+        this.governorateList = governorateList;
     }
 }

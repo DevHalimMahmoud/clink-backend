@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 public class Clinic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @OneToOne
@@ -24,11 +24,11 @@ public class Clinic {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
