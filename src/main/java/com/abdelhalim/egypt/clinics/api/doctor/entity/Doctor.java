@@ -14,6 +14,11 @@ public class Doctor {
 
     }
 
+    public Doctor(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

@@ -1,4 +1,4 @@
-package com.abdelhalim.egypt.clinics.api.governorate.controller;
+package com.abdelhalim.egypt.clinics.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

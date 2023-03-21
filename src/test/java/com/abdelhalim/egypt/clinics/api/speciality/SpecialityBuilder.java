@@ -1,4 +1,4 @@
-package com.abdelhalim.egypt.clinics.api.speciality.controller;
+package com.abdelhalim.egypt.clinics.api.speciality;
 
 import com.abdelhalim.egypt.clinics.api.speciality.dto.SpecialityDto;
 
