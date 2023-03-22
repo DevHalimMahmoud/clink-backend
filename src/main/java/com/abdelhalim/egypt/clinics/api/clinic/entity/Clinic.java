@@ -12,6 +12,10 @@ public class Clinic {
     private Long id;
     @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
+    private String name_ar;
+    @Column(nullable = false)
+    private String image;
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
@@ -71,5 +75,23 @@ public class Clinic {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+
+    public String getName_ar() {
+        return name_ar;
+    }
+
+    public void setName_ar(String name_ar) {
+        this.name_ar = name_ar;
+    }
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

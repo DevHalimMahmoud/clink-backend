@@ -9,6 +9,10 @@ public class Doctor {
     private Long id;
     @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
+    private String name_ar;
+    @Column(nullable = false)
+    private String image;
 
     public Doctor() {
 
@@ -17,6 +21,14 @@ public class Doctor {
     public Doctor(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public String getName_ar() {
+        return name_ar;
+    }
+
+    public void setName_ar(String name_ar) {
+        this.name_ar = name_ar;
     }
 
     public String getName() {
@@ -33,5 +45,13 @@ public class Doctor {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

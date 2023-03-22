@@ -11,6 +11,8 @@ public class Specialty {
     private String name;
     @Column(nullable = false)
     private String name_ar;
+    @Column(nullable = false)
+    private String image;
 
     public Specialty() {
     }
@@ -45,5 +47,11 @@ public class Specialty {
         this.name_ar = name_ar;
     }
 
-    // getters and setters
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

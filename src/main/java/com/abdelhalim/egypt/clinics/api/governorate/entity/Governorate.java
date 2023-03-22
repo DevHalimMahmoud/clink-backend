@@ -8,19 +8,16 @@ import java.util.Set;
 
 @Entity
 public class Governorate {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-
-    @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
-    private String name_ar;
     @OneToMany
     @JoinColumn(name = "address_id")
     private final Set<Address> address_list = new HashSet<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false)
+    private String name;
+    @Column(nullable = false)
+    private String name_ar;
 
     public Governorate() {
 
