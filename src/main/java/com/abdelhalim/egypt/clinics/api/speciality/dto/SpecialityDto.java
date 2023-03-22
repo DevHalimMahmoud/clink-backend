@@ -6,9 +6,18 @@ public class SpecialityDto {
 
     private String name_ar;
 
+    private String image;
+
     public SpecialityDto() {
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getName() {
         return this.name;
