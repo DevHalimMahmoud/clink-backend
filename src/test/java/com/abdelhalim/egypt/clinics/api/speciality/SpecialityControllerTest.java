@@ -59,13 +59,13 @@ class SpecialityControllerTest {
 
     @Test
     void getById() throws Exception {
-        Mockito.when(specialtyService.findById(ArgumentMatchers.anyInt())).thenReturn(SpecialityBuilder.getDto());
+        Mockito.when(specialtyService.findById(ArgumentMatchers.anyLong())).thenReturn(SpecialityBuilder.getDto());
 
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL + "/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentType(MediaType.APPLICATION_JSON));
-        Mockito.verify(specialtyService, Mockito.times(1)).findById(1);
+        Mockito.verify(specialtyService, Mockito.times(1)).findById(1L);
         Mockito.verifyNoMoreInteractions(specialtyService);
     }
 
@@ -97,12 +97,12 @@ class SpecialityControllerTest {
 
     @Test
     void delete() throws Exception {
-        Mockito.doNothing().when(specialtyService).deleteById(1);
+        Mockito.doNothing().when(specialtyService).deleteById(1L);
         mockMvc.perform(
                 MockMvcRequestBuilders.delete(ENDPOINT_URL + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(CustomUtils.asJsonString(SpecialityBuilder.getIds()))).andExpect(MockMvcResultMatchers.status().isOk());
-        Mockito.verify(specialtyService, Mockito.times(1)).deleteById(Mockito.anyInt());
+        Mockito.verify(specialtyService, Mockito.times(1)).deleteById(Mockito.anyLong());
         Mockito.verifyNoMoreInteractions(specialtyService);
     }
 }

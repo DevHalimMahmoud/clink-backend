@@ -27,13 +27,13 @@ public class SpecialityController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SpecialityDto> findById(@PathVariable("id") int id) {
+    public ResponseEntity<SpecialityDto> findById(@PathVariable("id") Long id) {
         SpecialityDto specialityDto = specialtyService.findById(id);
         return ResponseEntity.ok(specialityDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") int id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         specialtyService.deleteById(id);
         return ResponseEntity.ok().build();
     }

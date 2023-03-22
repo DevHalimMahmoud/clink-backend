@@ -59,13 +59,13 @@ class DoctorControllerTest {
 
     @Test
     void getById() throws Exception {
-        Mockito.when(doctorService.findById(ArgumentMatchers.anyInt())).thenReturn(DoctorBuilder.getDto());
+        Mockito.when(doctorService.findById(ArgumentMatchers.anyLong())).thenReturn(DoctorBuilder.getDto());
 
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL + "/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentType(MediaType.APPLICATION_JSON));
-        Mockito.verify(doctorService, Mockito.times(1)).findById(1);
+        Mockito.verify(doctorService, Mockito.times(1)).findById(1L);
         Mockito.verifyNoMoreInteractions(doctorService);
     }
 
@@ -97,12 +97,12 @@ class DoctorControllerTest {
 
     @Test
     void delete() throws Exception {
-        Mockito.doNothing().when(doctorService).deleteById(1);
+        Mockito.doNothing().when(doctorService).deleteById(1L);
         mockMvc.perform(
                 MockMvcRequestBuilders.delete(ENDPOINT_URL + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(CustomUtils.asJsonString(DoctorBuilder.getIds()))).andExpect(MockMvcResultMatchers.status().isOk());
-        Mockito.verify(doctorService, Mockito.times(1)).deleteById(Mockito.anyInt());
+        Mockito.verify(doctorService, Mockito.times(1)).deleteById(Mockito.anyLong());
         Mockito.verifyNoMoreInteractions(doctorService);
     }
 }

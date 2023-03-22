@@ -27,13 +27,13 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DoctorDto> findById(@PathVariable("id") int id) {
+    public ResponseEntity<DoctorDto> findById(@PathVariable("id") Long id) {
         DoctorDto governorate = doctorService.findById(id);
         return ResponseEntity.ok(governorate);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") int id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         doctorService.deleteById(id);
         return ResponseEntity.ok().build();
     }

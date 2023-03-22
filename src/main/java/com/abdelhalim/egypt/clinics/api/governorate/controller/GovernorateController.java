@@ -27,13 +27,13 @@ public class GovernorateController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GovernorateDto> findById(@PathVariable("id") int id) {
+    public ResponseEntity<GovernorateDto> findById(@PathVariable("id") Long id) {
         GovernorateDto governorate = governorateService.findById(id);
         return ResponseEntity.ok(governorate);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") int id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         governorateService.deleteById(id);
         return ResponseEntity.ok().build();
     }

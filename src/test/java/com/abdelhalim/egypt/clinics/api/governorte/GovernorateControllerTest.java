@@ -59,13 +59,13 @@ class GovernorateControllerTest {
 
     @Test
     void getById() throws Exception {
-        Mockito.when(governorateService.findById(ArgumentMatchers.anyInt())).thenReturn(GovernorateBuilder.getDto());
+        Mockito.when(governorateService.findById(ArgumentMatchers.anyLong())).thenReturn(GovernorateBuilder.getDto());
 
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL + "/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentType(MediaType.APPLICATION_JSON));
-        Mockito.verify(governorateService, Mockito.times(1)).findById(1);
+        Mockito.verify(governorateService, Mockito.times(1)).findById(1L);
         Mockito.verifyNoMoreInteractions(governorateService);
     }
 
@@ -97,12 +97,12 @@ class GovernorateControllerTest {
 
     @Test
     void delete() throws Exception {
-        Mockito.doNothing().when(governorateService).deleteById(1);
+        Mockito.doNothing().when(governorateService).deleteById(1L);
         mockMvc.perform(
                 MockMvcRequestBuilders.delete(ENDPOINT_URL + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(CustomUtils.asJsonString(GovernorateBuilder.getIds()))).andExpect(MockMvcResultMatchers.status().isOk());
-        Mockito.verify(governorateService, Mockito.times(1)).deleteById(Mockito.anyInt());
+        Mockito.verify(governorateService, Mockito.times(1)).deleteById(Mockito.anyLong());
         Mockito.verifyNoMoreInteractions(governorateService);
     }
 }
