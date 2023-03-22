@@ -27,13 +27,13 @@ public class AddressController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AddressDto> findById(@PathVariable("id") int id) {
+    public ResponseEntity<AddressDto> findById(@PathVariable("id") Long id) {
         AddressDto addressDto = addressService.findById(id);
         return ResponseEntity.ok(addressDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") int id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         addressService.deleteById(id);
         return ResponseEntity.ok().build();
     }
@@ -44,9 +44,9 @@ public class AddressController {
         return ResponseEntity.ok(doctorPage);
     }
 
-//    @PutMapping
-//    public ResponseEntity<Void> update(@RequestBody @Validated Doctor doctor) {
-//        addressService.update(doctor);
-//        return ResponseEntity.ok().build();
-//    }
+    @PutMapping
+    public ResponseEntity<Void> update(@RequestBody @Validated Address address) {
+        addressService.update(address);
+        return ResponseEntity.ok().build();
+    }
 }

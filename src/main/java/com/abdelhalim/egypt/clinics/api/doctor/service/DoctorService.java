@@ -28,11 +28,11 @@ public class DoctorService {
         doctorMapper.toDto(repository.save(entity));
     }
 
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
-    public DoctorDto findById(int id) {
+    public DoctorDto findById(Long id) {
 
         return doctorMapper.toDto(repository.findById(id).orElseThrow());
     }

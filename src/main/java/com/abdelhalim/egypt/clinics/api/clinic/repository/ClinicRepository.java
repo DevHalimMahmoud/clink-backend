@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClinicRepository extends JpaRepository<Clinic, Integer>, JpaSpecificationExecutor<Clinic> {
+public interface ClinicRepository extends JpaRepository<Clinic, Long>, JpaSpecificationExecutor<Clinic> {
     @Modifying
     @Query("""
             update Clinic c set c.name = ?1, c.address = ?2, c.phoneNumber = ?3, c.specialty = ?4, c.doctor = ?5

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GovernorateRepository extends JpaRepository<Governorate, Integer>, JpaSpecificationExecutor<Governorate> {
+public interface GovernorateRepository extends JpaRepository<Governorate, Long>, JpaSpecificationExecutor<Governorate> {
 
     @Modifying
     @Query("update Governorate g set g.name = ?1, g.name_ar = ?2 where g.id = ?3")

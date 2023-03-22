@@ -29,11 +29,11 @@ public class SpecialtyService {
         specialityMapper.toDto(repository.save(entity));
     }
 
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
-    public SpecialityDto findById(int id) {
+    public SpecialityDto findById(Long id) {
         Specialty specialty = repository.findById(id).orElseThrow();
         return specialityMapper.toDto(specialty);
     }

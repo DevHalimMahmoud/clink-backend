@@ -28,23 +28,25 @@ public class AddressService {
         doctorMapper.toDto(repository.save(entity));
     }
 
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
-    public AddressDto findById(int id) {
+    public AddressDto findById(Long id) {
 
         return doctorMapper.toDto(repository.findById(id).orElseThrow());
     }
 
     public Page<Address> findByCondition(Pageable pageable) {
+
+
         Page<Address> entityPage = repository.findAll(pageable);
         List<Address> entities = entityPage.getContent();
         return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
     }
 
-//    public void update(Address doctor) {
-//
-//        repository.updateNameById(doctor.getName(), doctor.getId());
-//    }
+    public void update(Address doctor) {
+
+        repository.updateNameById(doctor.getName(), doctor.getId());
+    }
 }

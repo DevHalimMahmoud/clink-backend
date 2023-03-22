@@ -28,11 +28,11 @@ public class GovernorateService {
         return governorateMapper.toDto(repository.save(entity));
     }
 
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
-    public GovernorateDto findById(int id) {
+    public GovernorateDto findById(Long id) {
         return governorateMapper.toDto(repository.findById(id).orElseThrow());
     }
 

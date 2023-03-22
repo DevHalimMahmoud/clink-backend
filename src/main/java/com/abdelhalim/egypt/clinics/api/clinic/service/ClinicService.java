@@ -28,11 +28,11 @@ public class ClinicService {
         clinicMapper.toDto(repository.save(entity));
     }
 
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
-    public ClinicDto findById(int id) {
+    public ClinicDto findById(Long id) {
 
         return clinicMapper.toDto(repository.findById(id).orElseThrow());
     }
@@ -44,7 +44,6 @@ public class ClinicService {
     }
 
     public void update(Clinic clinic) {
-
         repository.updateNameAndAddressAndPhoneNumberAndSpecialtyAndDoctorById(clinic.getName(), clinic.getAddress(), clinic.getPhoneNumber(), clinic.getSpecialty(), clinic.getDoctor(), clinic.getId());
     }
 }
