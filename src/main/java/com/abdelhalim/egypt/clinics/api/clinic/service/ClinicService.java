@@ -44,6 +44,15 @@ public class ClinicService {
     }
 
     public void update(Clinic clinic) {
-        repository.updateNameAndAddressAndPhoneNumberAndSpecialtyAndDoctorById(clinic.getName(), clinic.getAddress(), clinic.getPhoneNumber(), clinic.getSpecialty(), clinic.getDoctor(), clinic.getId());
+        Clinic clinic1 = repository.getReferenceById(clinic.getId());
+        clinic1.setName(clinic.getName());
+        clinic1.setAddressSet(clinic.getAddressSet());
+        clinic1.setPhoneNumber(clinic.getPhoneNumber());
+        clinic1.setSpecialtySet(clinic.getSpecialtySet());
+        clinic1.setImage(clinic.getImage());
+        clinic1.setSpecialtySet(clinic.getSpecialtySet());
+        repository.save(clinic1);
+
+
     }
 }

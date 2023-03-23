@@ -47,6 +47,7 @@ public class ClinicController {
 
     @PutMapping
     public ResponseEntity<Void> update(@RequestBody @Validated Clinic clinic) {
+
         clinicService.update(clinic);
         return ResponseEntity.ok().build();
     }

@@ -2,15 +2,16 @@ package com.abdelhalim.egypt.clinics.api.governorate.entity;
 
 import com.abdelhalim.egypt.clinics.api.address.entity.Address;
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
+@DynamicUpdate
 public class Governorate {
     @OneToMany
     @JoinColumn(name = "address_id")
-    private final Set<Address> address_list = new HashSet<>();
+    private List<Address> addressSet;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,10 +19,6 @@ public class Governorate {
     private String name;
     @Column(nullable = false)
     private String name_ar;
-
-    public Set<Address> getAddress_list() {
-        return address_list;
-    }
 
     public Governorate() {
 
@@ -31,6 +28,14 @@ public class Governorate {
         this.id = id;
         this.name = name;
         this.name_ar = name_ar;
+    }
+
+    public List<Address> getAddressSet() {
+        return addressSet;
+    }
+
+    public void setAddressSet(List<Address> addressSet) {
+        this.addressSet = addressSet;
     }
 
     public String getName_ar() {

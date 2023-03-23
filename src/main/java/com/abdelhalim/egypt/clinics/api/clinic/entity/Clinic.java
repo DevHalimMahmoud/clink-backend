@@ -4,8 +4,12 @@ import com.abdelhalim.egypt.clinics.api.address.entity.Address;
 import com.abdelhalim.egypt.clinics.api.doctor.entity.Doctor;
 import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.List;
 
 @Entity
+@DynamicUpdate
 public class Clinic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,17 +20,17 @@ public class Clinic {
     private String name_ar;
     @Column(nullable = false)
     private String image;
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "address_id")
-    private Address address;
+    private List<Address> addressSet;
     @Column(nullable = false)
     private String phoneNumber;
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "specialty_id")
-    private Specialty specialty;
-    @OneToOne
+    private List<Specialty> specialtySet;
+    @OneToMany
     @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
+    private List<Doctor> doctorSet;
 
     public Long getId() {
         return id;
@@ -44,14 +48,6 @@ public class Clinic {
         this.name = name;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -59,24 +55,6 @@ public class Clinic {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-
-    public Specialty getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(Specialty specialty) {
-        this.specialty = specialty;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
 
     public String getName_ar() {
         return name_ar;
@@ -86,12 +64,35 @@ public class Clinic {
         this.name_ar = name_ar;
     }
 
-
     public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<Address> getAddressSet() {
+        return addressSet;
+    }
+
+    public void setAddressSet(List<Address> addressSet) {
+        this.addressSet = addressSet;
+    }
+
+    public List<Specialty> getSpecialtySet() {
+        return specialtySet;
+    }
+
+    public void setSpecialtySet(List<Specialty> specialtySet) {
+        this.specialtySet = specialtySet;
+    }
+
+    public List<Doctor> getDoctorSet() {
+        return doctorSet;
+    }
+
+    public void setDoctorSet(List<Doctor> doctorSet) {
+        this.doctorSet = doctorSet;
     }
 }

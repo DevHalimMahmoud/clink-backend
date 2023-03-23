@@ -1,8 +1,10 @@
 package com.abdelhalim.egypt.clinics.api.speciality.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
+@DynamicUpdate
 public class Specialty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
