@@ -45,6 +45,10 @@ public class SpecialtyService {
 
     public void update(Specialty specialty) {
 
-        repository.updateNameById(specialty.getName(), specialty.getId());
+        Specialty specialty1 = repository.getReferenceById(specialty.getId());
+        specialty1.setName(specialty.getName());
+        specialty1.setName_ar(specialty.getName_ar());
+        specialty1.setImage(specialty.getImage());
+        repository.save(specialty1);
     }
 }

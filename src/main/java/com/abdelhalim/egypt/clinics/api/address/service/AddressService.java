@@ -45,8 +45,12 @@ public class AddressService {
         return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
     }
 
-    public void update(Address doctor) {
+    public void update(Address address) {
 
-        repository.updateNameById(doctor.getName(), doctor.getId());
+        Address address1 = repository.getReferenceById(address.getId());
+        address1.setName(address.getName());
+        address1.setName_ar(address.getName_ar());
+        repository.save(address1);
+
     }
 }
