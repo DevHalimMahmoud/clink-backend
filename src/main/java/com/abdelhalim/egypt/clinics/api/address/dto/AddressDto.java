@@ -3,7 +3,7 @@ package com.abdelhalim.egypt.clinics.api.address.dto;
 public class AddressDto {
 
     private String name;
-    private Long governorate_id;
+    private Long name_ar;
 
     public AddressDto() {
     }
@@ -16,11 +16,12 @@ public class AddressDto {
         this.name = name;
     }
 
-    public Long getGovernorate() {
-        return governorate_id;
+    public Long getName_ar() {
+        return name_ar;
     }
 
-    public void setGovernorate(Long governorate_id) {
-        this.governorate_id = governorate_id;
+    public void setName_ar(Long name_ar) {
+        this.name_ar = name_ar;
     }
+
 }

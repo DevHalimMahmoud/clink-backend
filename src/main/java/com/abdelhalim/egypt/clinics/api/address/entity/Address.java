@@ -10,9 +10,12 @@ public class Address {
     private Long id;
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String name_ar;
     @ManyToOne
     @JoinColumn(name = "governorate_id")
-    private Governorate governorateList;
+    private Governorate governorate;
 
     public Address() {
 
@@ -34,11 +37,19 @@ public class Address {
         this.id = id;
     }
 
-    public Governorate getGovernorateList() {
-        return governorateList;
+    public Governorate getGovernorate() {
+        return governorate;
     }
 
-    public void setGovernorateList(Governorate governorateList) {
-        this.governorateList = governorateList;
+    public void setGovernorate(Governorate governorate) {
+        this.governorate = governorate;
+    }
+
+    public String getName_ar() {
+        return name_ar;
+    }
+
+    public void setName_ar(String name_ar) {
+        this.name_ar = name_ar;
     }
 }

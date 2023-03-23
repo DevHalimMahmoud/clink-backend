@@ -19,6 +19,10 @@ public class Governorate {
     @Column(nullable = false)
     private String name_ar;
 
+    public Set<Address> getAddress_list() {
+        return address_list;
+    }
+
     public Governorate() {
 
     }
