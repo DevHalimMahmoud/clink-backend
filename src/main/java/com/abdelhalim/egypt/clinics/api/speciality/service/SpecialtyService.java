@@ -23,7 +23,6 @@ public class SpecialtyService {
     @Autowired
     private SpecialityMapper specialityMapper;
 
-
     public void save(SpecialityDto specialityDto) {
         Specialty entity = specialityMapper.toEntity(specialityDto);
         specialityMapper.toDto(repository.save(entity));

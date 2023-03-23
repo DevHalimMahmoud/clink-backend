@@ -1,6 +1,5 @@
 package com.abdelhalim.egypt.clinics.api.address.entity;
 
-import com.abdelhalim.egypt.clinics.api.clinic.entity.Clinic;
 import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -18,9 +17,9 @@ public class Address {
     @ManyToOne
     @JoinColumn(name = "governorate_id")
     private Governorate governorate;
-    @ManyToOne
-    @JoinColumn(name = "clinic_id")
-    private Clinic clinic;
+//    @ManyToOne
+//    @JoinColumn(name = "clinic_id")
+//    private Clinic clinic;
 
     public Address() {
 
@@ -58,11 +57,11 @@ public class Address {
         this.name_ar = name_ar;
     }
 
-    public Clinic getClinic() {
-        return clinic;
-    }
-
-    public void setClinic(Clinic clinic) {
-        this.clinic = clinic;
-    }
+//    public Clinic getClinic() {
+//        return clinic;
+//    }
+//
+//    public void setClinic(Clinic clinic) {
+//        this.clinic = clinic;
+//    }
 }
