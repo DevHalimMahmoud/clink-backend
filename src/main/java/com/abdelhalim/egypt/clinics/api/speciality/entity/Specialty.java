@@ -11,8 +11,8 @@ public class Specialty {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
-    private String name_ar;
+    @Column(nullable = false, name = "name_ar")
+    private String nameAr;
     @Column(nullable = false)
     private String image;
 
@@ -22,7 +22,7 @@ public class Specialty {
     public Specialty(Long id, String name, String name_ar) {
         this.id = id;
         this.name = name;
-        this.name_ar = name_ar;
+        this.nameAr = name_ar;
     }
 
     public Long getId() {
@@ -41,12 +41,12 @@ public class Specialty {
         this.name = name;
     }
 
-    public String getName_ar() {
-        return name_ar;
+    public String getNameAr() {
+        return nameAr;
     }
 
-    public void setName_ar(String name_ar) {
-        this.name_ar = name_ar;
+    public void setNameAr(String nameAr) {
+        this.nameAr = nameAr;
     }
 
     public String getImage() {

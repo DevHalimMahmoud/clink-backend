@@ -14,17 +14,17 @@ public class Governorate {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
-    private String name_ar;
+    @Column(nullable = false, name = "name_ar")
+    private String nameAr;
 
     public Governorate() {
 
     }
 
-    public Governorate(Long id, String name, String name_ar) {
+    public Governorate(Long id, String name, String nameAr) {
         this.id = id;
         this.name = name;
-        this.name_ar = name_ar;
+        this.nameAr = nameAr;
     }
 
 //    public List<Address> getAddressSet() {
@@ -35,12 +35,12 @@ public class Governorate {
 //        this.addressSet = addressSet;
 //    }
 
-    public String getName_ar() {
-        return name_ar;
+    public String getNameAr() {
+        return nameAr;
     }
 
-    public void setName_ar(String name_ar) {
-        this.name_ar = name_ar;
+    public void setNameAr(String nameAr) {
+        this.nameAr = nameAr;
     }
 
     public String getName() {

@@ -45,7 +45,7 @@ public class GovernorateService {
     public void update(Governorate governorate) {
         Governorate governorate1 = repository.getReferenceById(governorate.getId());
         governorate1.setName(governorate.getName());
-        governorate1.setName_ar(governorate.getName_ar());
+        governorate1.setNameAr(governorate.getNameAr());
 
         repository.save(governorate1);
     }

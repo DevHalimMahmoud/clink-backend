@@ -9,7 +9,7 @@ public class ClinicDto {
     private String phoneNumber;
     private String specialty_id;
     private String doctor_id;
-    private String name_ar;
+    private String nameAr;
     private String image;
 
     public ClinicDto() {
@@ -55,12 +55,12 @@ public class ClinicDto {
         this.doctor_id = doctor_id;
     }
 
-    public String getName_ar() {
-        return name_ar;
+    public String getNameAr() {
+        return nameAr;
     }
 
     public void setName_ar(String name_ar) {
-        this.name_ar = name_ar;
+        this.nameAr = name_ar;
     }
 
     public String getImage() {

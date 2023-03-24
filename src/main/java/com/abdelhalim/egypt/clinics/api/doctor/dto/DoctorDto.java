@@ -3,7 +3,7 @@ package com.abdelhalim.egypt.clinics.api.doctor.dto;
 public class DoctorDto {
 
     private String name;
-    private String name_ar;
+    private String nameAr;
     private String image;
 
     public DoctorDto() {
@@ -17,12 +17,12 @@ public class DoctorDto {
         this.name = name;
     }
 
-    public String getName_ar() {
-        return name_ar;
+    public String getNameAr() {
+        return nameAr;
     }
 
     public void setName_ar(String name_ar) {
-        this.name_ar = name_ar;
+        this.nameAr = name_ar;
     }
 
     public String getImage() {

@@ -2,7 +2,6 @@ package com.abdelhalim.egypt.clinics.api.clinic.entity;
 
 import com.abdelhalim.egypt.clinics.api.address.entity.Address;
 import com.abdelhalim.egypt.clinics.api.doctor.entity.Doctor;
-import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -16,21 +15,19 @@ public class Clinic {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
-    private String name_ar;
+    @Column(nullable = false, name = "name_ar")
+    private String nameAr;
     @Column(nullable = false)
     private String image;
     @OneToMany
     @JoinColumn(name = "address_id")
-    private List<Address> addressSet;
+    private List<Address> addressList;
     @Column(nullable = false)
     private String phoneNumber;
-    @OneToMany
-    @JoinColumn(name = "specialty_id")
-    private List<Specialty> specialtySet;
+
     @OneToMany
     @JoinColumn(name = "doctor_id")
-    private List<Doctor> doctorSet;
+    private List<Doctor> doctorList;
 
     public Long getId() {
         return id;
@@ -56,12 +53,12 @@ public class Clinic {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getName_ar() {
-        return name_ar;
+    public String getNameAr() {
+        return nameAr;
     }
 
-    public void setName_ar(String name_ar) {
-        this.name_ar = name_ar;
+    public void setNameAr(String nameAr) {
+        this.nameAr = nameAr;
     }
 
     public String getImage() {
@@ -72,27 +69,20 @@ public class Clinic {
         this.image = image;
     }
 
-    public List<Address> getAddressSet() {
-        return addressSet;
+    public List<Address> getAddressList() {
+        return addressList;
     }
 
-    public void setAddressSet(List<Address> addressSet) {
-        this.addressSet = addressSet;
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
     }
 
-    public List<Specialty> getSpecialtySet() {
-        return specialtySet;
+
+    public List<Doctor> getDoctorList() {
+        return doctorList;
     }
 
-    public void setSpecialtySet(List<Specialty> specialtySet) {
-        this.specialtySet = specialtySet;
-    }
-
-    public List<Doctor> getDoctorSet() {
-        return doctorSet;
-    }
-
-    public void setDoctorSet(List<Doctor> doctorSet) {
-        this.doctorSet = doctorSet;
+    public void setDoctorList(List<Doctor> doctorList) {
+        this.doctorList = doctorList;
     }
 }

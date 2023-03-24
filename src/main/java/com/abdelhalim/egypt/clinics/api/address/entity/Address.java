@@ -12,8 +12,8 @@ public class Address {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
-    private String name_ar;
+    @Column(nullable = false, name = "name_ar")
+    private String nameAr;
     @ManyToOne
     @JoinColumn(name = "governorate_id")
     private Governorate governorate;
@@ -49,12 +49,12 @@ public class Address {
         this.governorate = governorate;
     }
 
-    public String getName_ar() {
-        return name_ar;
+    public String getNameAr() {
+        return nameAr;
     }
 
-    public void setName_ar(String name_ar) {
-        this.name_ar = name_ar;
+    public void setNameAr(String nameAr) {
+        this.nameAr = nameAr;
     }
 
 //    public Clinic getClinic() {

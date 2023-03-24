@@ -1,7 +1,10 @@
 package com.abdelhalim.egypt.clinics.api.doctor.entity;
 
+import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.List;
 
 @Entity
 @DynamicUpdate
@@ -11,10 +14,14 @@ public class Doctor {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
-    private String name_ar;
+    @Column(nullable = false, name = "name_ar")
+    private String nameAr;
     @Column(nullable = false)
     private String image;
+    @OneToMany
+    @JoinColumn(name = "specialty_id")
+    private List<Specialty> specialtyList;
+
 
     public Doctor() {
 
@@ -25,12 +32,12 @@ public class Doctor {
         this.name = name;
     }
 
-    public String getName_ar() {
-        return name_ar;
+    public String getNameAr() {
+        return nameAr;
     }
 
-    public void setName_ar(String name_ar) {
-        this.name_ar = name_ar;
+    public void setNameAr(String nameAr) {
+        this.nameAr = nameAr;
     }
 
     public String getName() {
@@ -55,5 +62,13 @@ public class Doctor {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<Specialty> getSpecialtyList() {
+        return specialtyList;
+    }
+
+    public void setSpecialtyList(List<Specialty> specialtyList) {
+        this.specialtyList = specialtyList;
     }
 }

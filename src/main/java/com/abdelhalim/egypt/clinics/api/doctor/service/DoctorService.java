@@ -47,8 +47,9 @@ public class DoctorService {
 
         Doctor doctor1 = repository.getReferenceById(doctor.getId());
         doctor1.setName(doctor.getName());
-        doctor1.setName_ar(doctor.getName_ar());
+        doctor1.setNameAr(doctor.getNameAr());
         doctor1.setImage(doctor.getImage());
+        doctor1.setSpecialtyList(doctor.getSpecialtyList());
         repository.save(doctor1);
     }
 }

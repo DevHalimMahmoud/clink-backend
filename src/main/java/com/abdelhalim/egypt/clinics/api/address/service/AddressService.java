@@ -49,7 +49,7 @@ public class AddressService {
 
         Address address1 = repository.getReferenceById(address.getId());
         address1.setName(address.getName());
-        address1.setName_ar(address.getName_ar());
+        address1.setNameAr(address.getNameAr());
         repository.save(address1);
 
     }
