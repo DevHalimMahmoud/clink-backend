@@ -1,11 +1,15 @@
 package com.abdelhalim.egypt.clinics.api.doctor.dto;
 
+import java.util.List;
+
 public class DoctorDtoWithSpecialityId {
 
     private String name;
     private String nameAr;
     private String image;
-    private Long[] specialityIds;
+
+
+    private List<Long> specialityIds;
 
     public String getName() {
         return this.name;
@@ -31,11 +35,12 @@ public class DoctorDtoWithSpecialityId {
         this.image = image;
     }
 
-    public Long[] getSpecialityIds() {
+
+    public List<Long> getSpecialityIds() {
         return specialityIds;
     }
 
-    public void setSpecialityIds(Long[] specialityI) {
-        this.specialityIds = specialityI;
+    public void setSpecialityIds(List<Long> specialityIds) {
+        this.specialityIds = specialityIds;
     }
 }

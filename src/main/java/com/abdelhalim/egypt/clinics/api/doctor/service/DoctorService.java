@@ -35,10 +35,7 @@ public class DoctorService {
         entity.setName(doctorDtoWithSpecialityId.getName());
         entity.setNameAr(doctorDtoWithSpecialityId.getNameAr());
         entity.setImage(doctorDtoWithSpecialityId.getImage());
-        List<Specialty> specialtyList = new ArrayList<>();
-        Arrays.stream(doctorDtoWithSpecialityId.getSpecialityIds()).forEach(item -> {
-            specialtyList.add(specialtyRepository.getReferenceById(item));
-        });
+        List<Specialty> specialtyList = new ArrayList<>(specialtyRepository.findAllById(doctorDtoWithSpecialityId.getSpecialityIds()));
         entity.setSpecialtyList(specialtyList);
         repository.save(entity);
     }
@@ -64,12 +61,7 @@ public class DoctorService {
         doctor1.setName(doctor.getName());
         doctor1.setNameAr(doctor.getNameAr());
         doctor1.setImage(doctor.getImage());
-        List<Specialty> specialtyList = new ArrayList<>();
-        Arrays.stream(doctor.getSpecialityIds()).forEach(item -> {
-            specialtyList.add(specialtyRepository.getReferenceById(item));
-
-        });
-
+        List<Specialty> specialtyList = new ArrayList<>(specialtyRepository.findAllById(doctor.getSpecialityIds()));
         doctor1.setSpecialtyList(specialtyList);
         repository.save(doctor1);
     }
