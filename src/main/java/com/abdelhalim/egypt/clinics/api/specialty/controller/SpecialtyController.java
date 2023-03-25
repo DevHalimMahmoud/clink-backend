@@ -1,8 +1,8 @@
-package com.abdelhalim.egypt.clinics.api.speciality.controller;
+package com.abdelhalim.egypt.clinics.api.specialty.controller;
 
-import com.abdelhalim.egypt.clinics.api.speciality.dto.SpecialityDto;
-import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
-import com.abdelhalim.egypt.clinics.api.speciality.service.SpecialtyService;
+import com.abdelhalim.egypt.clinics.api.specialty.dto.SpecialtyDto;
+import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
+import com.abdelhalim.egypt.clinics.api.specialty.service.SpecialtyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/speciality")
 @RestController
 @Slf4j
-public class SpecialityController {
+public class SpecialtyController {
     @Autowired
     private SpecialtyService specialtyService;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated SpecialityDto specialityDto) {
-        specialtyService.save(specialityDto);
+    public ResponseEntity<Void> save(@RequestBody @Validated SpecialtyDto specialtyDto) {
+        specialtyService.save(specialtyDto);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SpecialityDto> findById(@PathVariable("id") Long id) {
-        SpecialityDto specialityDto = specialtyService.findById(id);
-        return ResponseEntity.ok(specialityDto);
+    public ResponseEntity<SpecialtyDto> findById(@PathVariable("id") Long id) {
+        SpecialtyDto specialtyDto = specialtyService.findById(id);
+        return ResponseEntity.ok(specialtyDto);
     }
 
     @DeleteMapping("/{id}")

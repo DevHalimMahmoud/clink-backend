@@ -6,5 +6,5 @@ import com.abdelhalim.egypt.clinics.base.EntityMapper;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface DoctorMapper extends EntityMapper<DoctorDto, Doctor> {
+public interface DoctorDtoMapper extends EntityMapper<DoctorDto, Doctor> {
 }

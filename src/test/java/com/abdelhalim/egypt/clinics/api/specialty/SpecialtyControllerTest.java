@@ -1,10 +1,10 @@
-package com.abdelhalim.egypt.clinics.api.speciality;
+package com.abdelhalim.egypt.clinics.api.specialty;
 
 import com.abdelhalim.egypt.clinics.api.CustomUtils;
-import com.abdelhalim.egypt.clinics.api.speciality.controller.SpecialityController;
-import com.abdelhalim.egypt.clinics.api.speciality.dto.SpecialityDto;
-import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
-import com.abdelhalim.egypt.clinics.api.speciality.service.SpecialtyService;
+import com.abdelhalim.egypt.clinics.api.specialty.controller.SpecialtyController;
+import com.abdelhalim.egypt.clinics.api.specialty.dto.SpecialtyDto;
+import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
+import com.abdelhalim.egypt.clinics.api.specialty.service.SpecialtyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -23,10 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 
 @Transactional
-class SpecialityControllerTest {
+class SpecialtyControllerTest {
     private static final String ENDPOINT_URL = "/api/speciality";
     @InjectMocks
-    private SpecialityController specialityController;
+    private SpecialtyController specialtyController;
     @Mock
     private SpecialtyService specialtyService;
     private MockMvc mockMvc;
@@ -35,7 +35,7 @@ class SpecialityControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders
-                .standaloneSetup(specialityController)
+                .standaloneSetup(specialtyController)
                 .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
                 //.addFilter(CustomFilter::doFilter)
                 .build();
@@ -78,7 +78,7 @@ class SpecialityControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(CustomUtils.asJsonString(SpecialityBuilder.getDto())))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-        Mockito.verify(specialtyService, Mockito.times(1)).save(ArgumentMatchers.any(SpecialityDto.class));
+        Mockito.verify(specialtyService, Mockito.times(1)).save(ArgumentMatchers.any(SpecialtyDto.class));
         Mockito.verifyNoMoreInteractions(specialtyService);
     }
 

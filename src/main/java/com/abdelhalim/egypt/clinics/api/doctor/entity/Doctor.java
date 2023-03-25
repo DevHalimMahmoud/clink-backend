@@ -1,6 +1,6 @@
 package com.abdelhalim.egypt.clinics.api.doctor.entity;
 
-import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
+import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -27,9 +27,12 @@ public class Doctor {
 
     }
 
-    public Doctor(Long id, String name) {
+    public Doctor(Long id, String name, String nameAr, String image, List<Specialty> specialtyList) {
         this.id = id;
         this.name = name;
+        this.nameAr = nameAr;
+        this.image = image;
+        this.specialtyList = specialtyList;
     }
 
     public String getNameAr() {

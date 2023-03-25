@@ -1,14 +1,14 @@
-package com.abdelhalim.egypt.clinics.api.speciality.dto;
+package com.abdelhalim.egypt.clinics.api.specialty.dto;
 
-public class SpecialityDto {
+public class SpecialtyDto {
 
     private String name;
 
-    private String name_ar;
+    private String nameAr;
 
     private String image;
 
-    public SpecialityDto() {
+    public SpecialtyDto() {
     }
 
     public String getImage() {
@@ -27,11 +27,11 @@ public class SpecialityDto {
         this.name = name;
     }
 
-    public String getName_ar() {
-        return name_ar;
+    public String getNameAr() {
+        return nameAr;
     }
 
-    public void setName_ar(String name_ar) {
-        this.name_ar = name_ar;
+    public void setNameAr(String nameAr) {
+        this.nameAr = nameAr;
     }
 }

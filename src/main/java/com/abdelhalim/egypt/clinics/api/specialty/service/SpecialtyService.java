@@ -1,9 +1,9 @@
-package com.abdelhalim.egypt.clinics.api.speciality.service;
+package com.abdelhalim.egypt.clinics.api.specialty.service;
 
-import com.abdelhalim.egypt.clinics.api.speciality.dto.SpecialityDto;
-import com.abdelhalim.egypt.clinics.api.speciality.entity.Specialty;
-import com.abdelhalim.egypt.clinics.api.speciality.mapper.SpecialityMapper;
-import com.abdelhalim.egypt.clinics.api.speciality.repository.SpecialtyRepository;
+import com.abdelhalim.egypt.clinics.api.specialty.dto.SpecialtyDto;
+import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
+import com.abdelhalim.egypt.clinics.api.specialty.mapper.SpecialtyMapper;
+import com.abdelhalim.egypt.clinics.api.specialty.repository.SpecialtyRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +21,20 @@ public class SpecialtyService {
     @Autowired
     private SpecialtyRepository repository;
     @Autowired
-    private SpecialityMapper specialityMapper;
+    private SpecialtyMapper specialtyMapper;
 
-    public void save(SpecialityDto specialityDto) {
-        Specialty entity = specialityMapper.toEntity(specialityDto);
-        specialityMapper.toDto(repository.save(entity));
+    public void save(SpecialtyDto specialtyDto) {
+        Specialty entity = specialtyMapper.toEntity(specialtyDto);
+        specialtyMapper.toDto(repository.save(entity));
     }
 
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
-    public SpecialityDto findById(Long id) {
+    public SpecialtyDto findById(Long id) {
         Specialty specialty = repository.findById(id).orElseThrow();
-        return specialityMapper.toDto(specialty);
+        return specialtyMapper.toDto(specialty);
     }
 
     public Page<Specialty> findByCondition(Pageable pageable) {

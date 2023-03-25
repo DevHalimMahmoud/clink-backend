@@ -1,6 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.doctor.controller;
 
 import com.abdelhalim.egypt.clinics.api.doctor.dto.DoctorDto;
+import com.abdelhalim.egypt.clinics.api.doctor.dto.DoctorDtoWithSpecialityId;
 import com.abdelhalim.egypt.clinics.api.doctor.entity.Doctor;
 import com.abdelhalim.egypt.clinics.api.doctor.service.DoctorService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +22,8 @@ public class DoctorController {
     private DoctorService doctorService;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated DoctorDto doctorDto) {
-        doctorService.save(doctorDto);
+    public ResponseEntity<Void> save(@RequestBody @Validated DoctorDtoWithSpecialityId doctorDtoWithSpecialityId) {
+        doctorService.save(doctorDtoWithSpecialityId);
         return ResponseEntity.ok().build();
     }
 
@@ -44,9 +45,9 @@ public class DoctorController {
         return ResponseEntity.ok(doctorPage);
     }
 
-    @PutMapping
-    public ResponseEntity<Void> update(@RequestBody @Validated Doctor doctor) {
-        doctorService.update(doctor);
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody @Validated DoctorDtoWithSpecialityId doctor) {
+        doctorService.update(id, doctor);
         return ResponseEntity.ok().build();
     }
 }

@@ -1,4 +1,4 @@
-package com.abdelhalim.egypt.clinics.api.speciality.entity;
+package com.abdelhalim.egypt.clinics.api.specialty.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;

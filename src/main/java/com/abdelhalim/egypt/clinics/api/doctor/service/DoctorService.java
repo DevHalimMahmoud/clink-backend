@@ -1,9 +1,12 @@
 package com.abdelhalim.egypt.clinics.api.doctor.service;
 
 import com.abdelhalim.egypt.clinics.api.doctor.dto.DoctorDto;
+import com.abdelhalim.egypt.clinics.api.doctor.dto.DoctorDtoWithSpecialityId;
 import com.abdelhalim.egypt.clinics.api.doctor.entity.Doctor;
-import com.abdelhalim.egypt.clinics.api.doctor.mapper.DoctorMapper;
+import com.abdelhalim.egypt.clinics.api.doctor.mapper.DoctorDtoMapper;
 import com.abdelhalim.egypt.clinics.api.doctor.repository.DoctorRepository;
+import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
+import com.abdelhalim.egypt.clinics.api.specialty.repository.SpecialtyRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -19,13 +24,23 @@ import java.util.List;
 @Transactional
 public class DoctorService {
     @Autowired
+    private SpecialtyRepository specialtyRepository;
+    @Autowired
     private DoctorRepository repository;
     @Autowired
-    private DoctorMapper doctorMapper;
+    private DoctorDtoMapper doctorDtoMapper;
 
-    public void save(DoctorDto doctorDto) {
-        Doctor entity = doctorMapper.toEntity(doctorDto);
-        doctorMapper.toDto(repository.save(entity));
+    public void save(DoctorDtoWithSpecialityId doctorDtoWithSpecialityId) {
+        Doctor entity = new Doctor();
+        entity.setName(doctorDtoWithSpecialityId.getName());
+        entity.setNameAr(doctorDtoWithSpecialityId.getNameAr());
+        entity.setImage(doctorDtoWithSpecialityId.getImage());
+        List<Specialty> specialtyList = new ArrayList<>();
+        Arrays.stream(doctorDtoWithSpecialityId.getSpecialityIds()).forEach(item -> {
+            specialtyList.add(specialtyRepository.getReferenceById(item));
+        });
+        entity.setSpecialtyList(specialtyList);
+        repository.save(entity);
     }
 
     public void deleteById(Long id) {
@@ -34,7 +49,7 @@ public class DoctorService {
 
     public DoctorDto findById(Long id) {
 
-        return doctorMapper.toDto(repository.findById(id).orElseThrow());
+        return doctorDtoMapper.toDto(repository.findById(id).orElseThrow());
     }
 
     public Page<Doctor> findByCondition(Pageable pageable) {
@@ -43,13 +58,19 @@ public class DoctorService {
         return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
     }
 
-    public void update(Doctor doctor) {
+    public void update(Long id, DoctorDtoWithSpecialityId doctor) {
 
-        Doctor doctor1 = repository.getReferenceById(doctor.getId());
+        Doctor doctor1 = repository.getReferenceById(id);
         doctor1.setName(doctor.getName());
         doctor1.setNameAr(doctor.getNameAr());
         doctor1.setImage(doctor.getImage());
-        doctor1.setSpecialtyList(doctor.getSpecialtyList());
+        List<Specialty> specialtyList = new ArrayList<>();
+        Arrays.stream(doctor.getSpecialityIds()).forEach(item -> {
+            specialtyList.add(specialtyRepository.getReferenceById(item));
+
+        });
+
+        doctor1.setSpecialtyList(specialtyList);
         repository.save(doctor1);
     }
 }
