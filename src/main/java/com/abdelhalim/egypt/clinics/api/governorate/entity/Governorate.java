@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 public class Governorate {
-        @OneToMany
+    @OneToMany
     @JoinColumn(name = "governorate_id")
     private List<Address> addressSet;
     @Id

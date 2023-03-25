@@ -42,10 +42,10 @@ public class GovernorateService {
         return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
     }
 
-    public void update(Governorate governorate) {
-        Governorate governorate1 = repository.getReferenceById(governorate.getId());
-        governorate1.setName(governorate.getName());
-        governorate1.setNameAr(governorate.getNameAr());
+    public void update(Long id, GovernorateDto governorateDto) {
+        Governorate governorate1 = repository.getReferenceById(id);
+        governorate1.setName(governorateDto.getName());
+        governorate1.setNameAr(governorateDto.getNameAr());
 
         repository.save(governorate1);
     }
