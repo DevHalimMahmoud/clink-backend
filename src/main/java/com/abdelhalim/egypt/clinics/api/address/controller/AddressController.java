@@ -1,6 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.address.controller;
 
 import com.abdelhalim.egypt.clinics.api.address.dto.AddressDto;
+import com.abdelhalim.egypt.clinics.api.address.dto.AddressDtoWithGovernorateId;
 import com.abdelhalim.egypt.clinics.api.address.entity.Address;
 import com.abdelhalim.egypt.clinics.api.address.service.AddressService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ public class AddressController {
     private AddressService addressService;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated AddressDto addressDto) {
+    public ResponseEntity<Void> save(@RequestBody @Validated AddressDtoWithGovernorateId addressDto) {
         addressService.save(addressDto);
         return ResponseEntity.ok().build();
     }
@@ -44,9 +45,9 @@ public class AddressController {
         return ResponseEntity.ok(doctorPage);
     }
 
-    @PutMapping
-    public ResponseEntity<Void> update(@RequestBody @Validated Address address) {
-        addressService.update(address);
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable("id") Long id,@RequestBody @Validated AddressDtoWithGovernorateId address) {
+        addressService.update(id,address);
         return ResponseEntity.ok().build();
     }
 }

@@ -45,8 +45,8 @@ public class GovernorateController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") Long id,@RequestBody @Validated GovernorateDto governorateDto) {
-        governorateService.update(id,governorateDto);
+    public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody @Validated GovernorateDto governorateDto) {
+        governorateService.update(id, governorateDto);
         return ResponseEntity.ok().build();
     }
 }

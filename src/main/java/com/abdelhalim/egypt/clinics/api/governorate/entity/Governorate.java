@@ -1,6 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.governorate.entity;
 
 import com.abdelhalim.egypt.clinics.api.address.entity.Address;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 public class Governorate {
+    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "governorate_id")
     private List<Address> addressSet;

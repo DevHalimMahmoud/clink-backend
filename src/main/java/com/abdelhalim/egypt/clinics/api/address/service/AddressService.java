@@ -1,9 +1,11 @@
 package com.abdelhalim.egypt.clinics.api.address.service;
 
 import com.abdelhalim.egypt.clinics.api.address.dto.AddressDto;
+import com.abdelhalim.egypt.clinics.api.address.dto.AddressDtoWithGovernorateId;
 import com.abdelhalim.egypt.clinics.api.address.entity.Address;
 import com.abdelhalim.egypt.clinics.api.address.mapper.AddressMapper;
 import com.abdelhalim.egypt.clinics.api.address.repository.AddressRepository;
+import com.abdelhalim.egypt.clinics.api.governorate.repository.GovernorateRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,16 @@ public class AddressService {
     private AddressRepository repository;
     @Autowired
     private AddressMapper doctorMapper;
+    @Autowired
+    private GovernorateRepository governorateRepository;
 
-    public void save(AddressDto doctorDto) {
-        Address entity = doctorMapper.toEntity(doctorDto);
-        doctorMapper.toDto(repository.save(entity));
+    public void save(AddressDtoWithGovernorateId doctorDto) {
+
+        Address entity = new Address();
+        entity.setName(doctorDto.getName());
+        entity.setNameAr(doctorDto.getNameAr());
+        entity.setGovernorate(governorateRepository.getReferenceById(doctorDto.getGovernorateId()));
+        repository.save(entity);
     }
 
     public void deleteById(Long id) {
@@ -45,11 +53,12 @@ public class AddressService {
         return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
     }
 
-    public void update(Address address) {
+    public void update(Long id, AddressDtoWithGovernorateId address) {
 
-        Address address1 = repository.getReferenceById(address.getId());
+        Address address1 = repository.getReferenceById(id);
         address1.setName(address.getName());
         address1.setNameAr(address.getNameAr());
+        address1.setGovernorate(governorateRepository.getReferenceById(address.getGovernorateId()));
         repository.save(address1);
 
     }

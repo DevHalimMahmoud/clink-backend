@@ -1,13 +1,13 @@
 package com.abdelhalim.egypt.clinics.api.address.dto;
 
-import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
-
-public class AddressDto {
+public class AddressDtoWithGovernorateId {
 
     private String name;
     private String nameAr;
-    private Governorate governorate;
-    public AddressDto() {
+
+    private Long governorateId;
+
+    public AddressDtoWithGovernorateId() {
     }
 
     public String getName() {
@@ -26,11 +26,11 @@ public class AddressDto {
         this.nameAr = nameAr;
     }
 
-    public Governorate getGovernorate() {
-        return governorate;
+    public Long getGovernorateId() {
+        return governorateId;
     }
 
-    public void setGovernorate(Governorate governorate) {
-        this.governorate = governorate;
+    public void setGovernorateId(Long governorateId) {
+        this.governorateId = governorateId;
     }
 }

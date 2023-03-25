@@ -1,6 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.clinic.controller;
 
 import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDto;
+import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDtoWithIds;
 import com.abdelhalim.egypt.clinics.api.clinic.entity.Clinic;
 import com.abdelhalim.egypt.clinics.api.clinic.service.ClinicService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +23,8 @@ public class ClinicController {
     private ClinicService clinicService;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated ClinicDto doctorDto) {
-        clinicService.save(doctorDto);
+    public ResponseEntity<Void> save(@RequestBody @Validated ClinicDtoWithIds clinicDtoWithIds) {
+        clinicService.save(clinicDtoWithIds);
         return ResponseEntity.ok().build();
     }
 
@@ -45,10 +46,10 @@ public class ClinicController {
         return ResponseEntity.ok(clinicPage);
     }
 
-    @PutMapping
-    public ResponseEntity<Void> update(@RequestBody @Validated Clinic clinic) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable("id") Long id,@RequestBody @Validated ClinicDtoWithIds clinic) {
 
-        clinicService.update(clinic);
+        clinicService.update(id,clinic);
         return ResponseEntity.ok().build();
     }
 }

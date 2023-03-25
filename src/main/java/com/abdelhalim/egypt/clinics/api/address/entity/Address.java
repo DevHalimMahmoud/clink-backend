@@ -2,6 +2,7 @@ package com.abdelhalim.egypt.clinics.api.address.entity;
 
 import com.abdelhalim.egypt.clinics.api.clinic.entity.Clinic;
 import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -18,6 +19,7 @@ public class Address {
     @ManyToOne
     @JoinColumn(name = "governorate_id")
     private Governorate governorate;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "clinic_id")
     private Clinic clinic;

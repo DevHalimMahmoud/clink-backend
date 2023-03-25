@@ -1,9 +1,12 @@
 package com.abdelhalim.egypt.clinics.api.clinic.service;
 
+import com.abdelhalim.egypt.clinics.api.address.repository.AddressRepository;
 import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDto;
+import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDtoWithIds;
 import com.abdelhalim.egypt.clinics.api.clinic.entity.Clinic;
 import com.abdelhalim.egypt.clinics.api.clinic.mapper.ClinicMapper;
 import com.abdelhalim.egypt.clinics.api.clinic.repository.ClinicRepository;
+import com.abdelhalim.egypt.clinics.api.doctor.repository.DoctorRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +25,20 @@ public class ClinicService {
     private ClinicRepository repository;
     @Autowired
     private ClinicMapper clinicMapper;
+    @Autowired
+    AddressRepository addressRepository;
+    @Autowired
+    DoctorRepository doctorRepository;
 
-    public void save(ClinicDto clinicDto) {
-        Clinic entity = clinicMapper.toEntity(clinicDto);
-        clinicMapper.toDto(repository.save(entity));
+    public void save(ClinicDtoWithIds clinicDto) {
+        Clinic entity = new Clinic();
+        entity.setName(clinicDto.getName());
+        entity.setNameAr(clinicDto.getNameAr());
+        entity.setImage(clinicDto.getImage());
+        entity.setPhoneNumber(clinicDto.getPhoneNumber());
+        entity.setAddressList(addressRepository.findAllById(clinicDto.getAddressIds()));
+        entity.setDoctorList(doctorRepository.findAllById(clinicDto.getDoctorIds()));
+        repository.save(entity);
     }
 
     public void deleteById(Long id) {
@@ -43,15 +56,14 @@ public class ClinicService {
         return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
     }
 
-    public void update(Clinic clinic) {
-        Clinic clinic1 = repository.getReferenceById(clinic.getId());
+    public void update(Long id, ClinicDtoWithIds clinic) {
+        Clinic clinic1 = repository.getReferenceById(id);
         clinic1.setName(clinic.getName());
-        clinic1.setAddressList(clinic.getAddressList());
         clinic1.setPhoneNumber(clinic.getPhoneNumber());
-        clinic1.setDoctorList(clinic.getDoctorList());
         clinic1.setImage(clinic.getImage());
+        clinic1.setNameAr(clinic.getNameAr());
+        clinic1.setAddressList(addressRepository.findAllById(clinic.getAddressIds()));
+        clinic1.setDoctorList(doctorRepository.findAllById(clinic.getDoctorIds()));
         repository.save(clinic1);
-
-
     }
 }

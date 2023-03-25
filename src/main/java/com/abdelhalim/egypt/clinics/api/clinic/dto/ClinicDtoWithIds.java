@@ -1,20 +1,18 @@
 package com.abdelhalim.egypt.clinics.api.clinic.dto;
 
-import com.abdelhalim.egypt.clinics.api.address.entity.Address;
-import com.abdelhalim.egypt.clinics.api.doctor.entity.Doctor;
-
 import java.util.List;
 
-public class ClinicDto {
+public class ClinicDtoWithIds {
 
     private String name;
-    private List<Address> addressList;
+
     private String phoneNumber;
     private String nameAr;
     private String image;
-    private List<Doctor> doctorList;
+    private List<Long> addressIds;
+    private List<Long> doctorIds;
 
-    public ClinicDto() {
+    public ClinicDtoWithIds() {
     }
 
     public String getName() {
@@ -25,13 +23,6 @@ public class ClinicDto {
         this.name = name;
     }
 
-    public List<Address> getAddressList() {
-        return addressList;
-    }
-
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -59,12 +50,20 @@ public class ClinicDto {
         this.nameAr = nameAr;
     }
 
-    public List<Doctor> getDoctorList() {
-        return doctorList;
+    public List<Long> getAddressIds() {
+        return addressIds;
     }
 
-    public void setDoctorList(List<Doctor> doctorList) {
-        this.doctorList = doctorList;
+    public void setAddressIds(List<Long> addressIds) {
+        this.addressIds = addressIds;
+    }
+
+    public List<Long> getDoctorIds() {
+        return doctorIds;
+    }
+
+    public void setDoctorIds(List<Long> doctorIds) {
+        this.doctorIds = doctorIds;
     }
 
 }
