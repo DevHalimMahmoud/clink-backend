@@ -19,7 +19,7 @@ public class Doctor {
     @Column(nullable = false)
     private String image;
     @OneToMany
-    @JoinColumn(name = "specialty_id")
+    @JoinColumn(name = "doctor_id")
     private List<Specialty> specialtyList;
 
 

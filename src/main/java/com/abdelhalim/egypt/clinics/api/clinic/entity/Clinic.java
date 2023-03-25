@@ -20,13 +20,13 @@ public class Clinic {
     @Column(nullable = false)
     private String image;
     @OneToMany
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "clinic_id")
     private List<Address> addressList;
     @Column(nullable = false)
     private String phoneNumber;
 
     @OneToMany
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "clinic_id")
     private List<Doctor> doctorList;
 
     public Long getId() {
