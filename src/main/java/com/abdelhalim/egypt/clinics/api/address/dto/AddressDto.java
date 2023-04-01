@@ -7,6 +7,7 @@ public class AddressDto {
     private String name;
     private String nameAr;
     private Governorate governorate;
+
     public AddressDto() {
     }
 

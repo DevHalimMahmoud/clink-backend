@@ -22,13 +22,13 @@ import java.util.List;
 @Transactional
 public class ClinicService {
     @Autowired
-    private ClinicRepository repository;
-    @Autowired
-    private ClinicMapper clinicMapper;
-    @Autowired
     AddressRepository addressRepository;
     @Autowired
     DoctorRepository doctorRepository;
+    @Autowired
+    private ClinicRepository repository;
+    @Autowired
+    private ClinicMapper clinicMapper;
 
     public void save(ClinicDtoWithIds clinicDto) {
         Clinic entity = new Clinic();

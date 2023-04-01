@@ -8,12 +8,12 @@ public class GovernorateDto {
     public GovernorateDto() {
     }
 
-    public void setNameAr(String nameAr) {
-        this.nameAr = nameAr;
-    }
-
     public String getNameAr() {
         return nameAr;
+    }
+
+    public void setNameAr(String nameAr) {
+        this.nameAr = nameAr;
     }
 
     public String getName() {

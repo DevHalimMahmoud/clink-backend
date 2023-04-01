@@ -46,6 +46,9 @@ public class ClinicDto {
         return nameAr;
     }
 
+    public void setNameAr(String nameAr) {
+        this.nameAr = nameAr;
+    }
 
     public String getImage() {
         return image;
@@ -53,10 +56,6 @@ public class ClinicDto {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public void setNameAr(String nameAr) {
-        this.nameAr = nameAr;
     }
 
     public List<Doctor> getDoctorList() {

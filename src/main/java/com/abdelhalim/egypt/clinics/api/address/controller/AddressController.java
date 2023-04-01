@@ -46,8 +46,8 @@ public class AddressController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") Long id,@RequestBody @Validated AddressDtoWithGovernorateId address) {
-        addressService.update(id,address);
+    public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody @Validated AddressDtoWithGovernorateId address) {
+        addressService.update(id, address);
         return ResponseEntity.ok().build();
     }
 }

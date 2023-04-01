@@ -37,6 +37,9 @@ public class ClinicDtoWithIds {
         return nameAr;
     }
 
+    public void setNameAr(String nameAr) {
+        this.nameAr = nameAr;
+    }
 
     public String getImage() {
         return image;
@@ -44,10 +47,6 @@ public class ClinicDtoWithIds {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public void setNameAr(String nameAr) {
-        this.nameAr = nameAr;
     }
 
     public List<Long> getAddressIds() {

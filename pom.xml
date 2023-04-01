@@ -96,11 +96,9 @@
         </dependency>
 
         <dependency>
-            <groupId>io.supabase</groupId>
-            <artifactId>storage-java</artifactId>
-            <version>1.0.1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/storage-java-1.0.1.jar</systemPath>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>9.1.1</version>
         </dependency>
     </dependencies>
 

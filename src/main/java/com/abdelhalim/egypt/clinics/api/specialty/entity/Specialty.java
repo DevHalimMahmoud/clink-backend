@@ -3,12 +3,14 @@ package com.abdelhalim.egypt.clinics.api.specialty.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.UUID;
+
 @Entity
 @DynamicUpdate
 public class Specialty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false, name = "name_ar")

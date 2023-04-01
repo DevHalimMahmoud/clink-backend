@@ -47,9 +47,9 @@ public class ClinicController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") Long id,@RequestBody @Validated ClinicDtoWithIds clinic) {
+    public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody @Validated ClinicDtoWithIds clinic) {
 
-        clinicService.update(id,clinic);
+        clinicService.update(id, clinic);
         return ResponseEntity.ok().build();
     }
 }
