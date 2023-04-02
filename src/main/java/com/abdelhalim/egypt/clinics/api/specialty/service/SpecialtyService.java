@@ -31,7 +31,6 @@ public class SpecialtyService {
     public void save(SpecialtyDto specialtyDto) {
         Specialty entity = specialtyMapper.toEntity(specialtyDto);
 
-        log.error(entity.getId().toString());
         try {
             String extension = Base64Utils.getFileExtensionFromBase64(specialtyDto.getImage());
             byte[] decodedBytes = Base64.getDecoder().decode(specialtyDto.getImage().split(",")[1]);
@@ -66,7 +65,18 @@ public class SpecialtyService {
         Specialty specialty1 = repository.getReferenceById(specialty.getId());
         specialty1.setName(specialty.getName());
         specialty1.setNameAr(specialty.getNameAr());
-        specialty1.setImage(specialty.getImage());
-        repository.save(specialty1);
+
+        try {
+            ImageUtils.deleteImage("clink-3b1fe.appspot.com", "specialty/" + specialty.getId());
+            String extension = Base64Utils.getFileExtensionFromBase64(specialty.getImage());
+            byte[] decodedBytes = Base64.getDecoder().decode(specialty.getImage().split(",")[1]);
+
+            String url = ImageUtils.uploadObjectFromMemory("clink-3b1fe.appspot.com", "specialty/" + specialty.getId(), decodedBytes, extension);
+            specialty1.setImage(url);
+            repository.save(specialty);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
