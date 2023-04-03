@@ -9,7 +9,6 @@ import java.util.UUID;
 @DynamicUpdate
 public class Specialty {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
     @Column(nullable = false)
     private String name;
