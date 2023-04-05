@@ -1,6 +1,8 @@
 package com.abdelhalim.egypt.clinics.api.specialty.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.UUID;
