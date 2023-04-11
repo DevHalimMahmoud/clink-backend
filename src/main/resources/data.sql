@@ -36,8 +36,19 @@ CREATE TABLE clinic (
    phone_number VARCHAR(255) NOT NULL,
    CONSTRAINT pk_clinic PRIMARY KEY (id)
 );
-ALTER TABLE address ADD CONSTRAINT FK_ADDRESS_ON_CLINIC FOREIGN KEY (clinic_id) REFERENCES clinic (id);
 
+CREATE TABLE "user" (
+  id BIGINT NOT NULL,
+   phone VARCHAR(255) NOT NULL,
+   password TEXT NOT NULL,
+   age INT NOT NULL,
+   gender VARCHAR(255) NOT NULL,
+   image TEXT NOT NULL,
+   name VARCHAR(255) NOT NULL,
+   CONSTRAINT pk_user PRIMARY KEY (id)
+);
+
+ALTER TABLE address ADD CONSTRAINT FK_ADDRESS_ON_CLINIC FOREIGN KEY (clinic_id) REFERENCES clinic (id);
 ALTER TABLE address ADD CONSTRAINT FK_ADDRESS_ON_GOVERNORATE FOREIGN KEY (governorate_id) REFERENCES governorate (id);
 ALTER TABLE doctor ADD CONSTRAINT FK_DOCTOR_ON_CLINIC FOREIGN KEY (clinic_id) REFERENCES clinic (id);
 ALTER TABLE specialty ADD CONSTRAINT FK_SPECIALTY_ON_DOCTOR FOREIGN KEY (doctor_id) REFERENCES doctor (id);
@@ -96,3 +107,8 @@ INSERT INTO address (name, name_ar, governorate_id, clinic_id) VALUES
         ('789 High St', 'شارع هاي 789', 3, 3),
         ('321 Main St', 'شارع المركز الرئيسي 321', 4, 4);
 
+    INSERT INTO "user" (id, phone, password, age, gender, image) VALUES
+        (1, '123456789', 'password123', 25, 'male', 'image1.jpg'),
+        (2, '987654321', 'password456', 32, 'female', 'image2.jpg'),
+        (3, '555555555', 'password789', 18, 'non-binary', 'image3.jpg'),
+        (4, '999999999', 'passwordabc', 40, 'male', 'image4.jpg');
