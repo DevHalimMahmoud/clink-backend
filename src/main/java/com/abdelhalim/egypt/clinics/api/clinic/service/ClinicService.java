@@ -7,6 +7,8 @@ import com.abdelhalim.egypt.clinics.api.clinic.entity.Clinic;
 import com.abdelhalim.egypt.clinics.api.clinic.mapper.ClinicMapper;
 import com.abdelhalim.egypt.clinics.api.clinic.repository.ClinicRepository;
 import com.abdelhalim.egypt.clinics.api.doctor.repository.DoctorRepository;
+import com.abdelhalim.egypt.clinics.utils.Base64Utils;
+import com.abdelhalim.egypt.clinics.utils.ImageUtils;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @Slf4j
@@ -34,14 +38,24 @@ public class ClinicService {
         Clinic entity = new Clinic();
         entity.setName(clinicDto.getName());
         entity.setNameAr(clinicDto.getNameAr());
-        entity.setImage(clinicDto.getImage());
         entity.setPhoneNumber(clinicDto.getPhoneNumber());
         entity.setAddressList(addressRepository.findAllById(clinicDto.getAddressIds()));
         entity.setDoctorList(doctorRepository.findAllById(clinicDto.getDoctorIds()));
+        try {
+            String extension = Base64Utils.getFileExtensionFromBase64(clinicDto.getImage());
+            byte[] decodedBytes = Base64.getDecoder().decode(clinicDto.getImage().split(",")[1]);
+
+            String url = ImageUtils.uploadObjectFromMemory("clink-3b1fe.appspot.com", "clinic/" + entity.getId(), decodedBytes, extension);
+            entity.setImage(url);
+            repository.save(entity);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         repository.save(entity);
     }
 
     public void deleteById(Long id) {
+        ImageUtils.deleteImage("clink-3b1fe.appspot.com", "specialty/" + id);
         repository.deleteById(id);
     }
 
@@ -64,6 +78,16 @@ public class ClinicService {
         clinic1.setNameAr(clinic.getNameAr());
         clinic1.setAddressList(addressRepository.findAllById(clinic.getAddressIds()));
         clinic1.setDoctorList(doctorRepository.findAllById(clinic.getDoctorIds()));
-        repository.save(clinic1);
+        try {
+            ImageUtils.deleteImage("clink-3b1fe.appspot.com", "specialty/" + id);
+            String extension = Base64Utils.getFileExtensionFromBase64(clinic.getImage());
+            byte[] decodedBytes = Base64.getDecoder().decode(clinic.getImage().split(",")[1]);
+
+            String url = ImageUtils.uploadObjectFromMemory("clink-3b1fe.appspot.com", "specialty/" + id, decodedBytes, extension);
+            clinic1.setImage(url);
+            repository.save(clinic1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
