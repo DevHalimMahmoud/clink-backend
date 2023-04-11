@@ -21,12 +21,12 @@ public class ImageUtils {
         Bucket bucket = StorageClient.getInstance().bucket();
         Blob blob = bucket.create(objectName, new ByteArrayInputStream(contents), "image/" + extension);
         System.out.println(blob +
-                           "Object "
-                           + objectName
-                           + " uploaded to bucket "
-                           + bucketName
-                           + " with contents "
-                           + contents);
+                "Object "
+                + objectName
+                + " uploaded to bucket "
+                + bucketName
+                + " with contents "
+                + contents);
 
         return blob.signUrl(365 * 10, TimeUnit.DAYS).toString();
     }
