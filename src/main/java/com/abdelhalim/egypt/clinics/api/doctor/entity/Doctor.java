@@ -16,7 +16,7 @@ public class Doctor {
     private String name;
     @Column(nullable = false, name = "name_ar")
     private String nameAr;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
     @OneToMany
     @JoinColumn(name = "doctor_id")
