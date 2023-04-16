@@ -12,16 +12,27 @@ import java.util.UUID;
 public class Doctor {
     @Id
     private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false, name = "name_ar")
     private String nameAr;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
+
+    @Column(nullable = false)
+    private Boolean isVerified;
+
+    @Column(nullable = false)
+    private String phone;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String password;
     @OneToMany
     @JoinColumn(name = "doctor_id")
     private List<Specialty> specialtyList;
-
 
     public Doctor() {
 

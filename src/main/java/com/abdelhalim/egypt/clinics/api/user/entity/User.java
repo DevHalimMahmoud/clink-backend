@@ -10,18 +10,27 @@ import java.util.UUID;
 public class User {
     @Id
     private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+
     @Column(nullable = false)
     private String phone;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String password;
+
     @Column(nullable = false)
     private int age;
+
     @Column(nullable = false)
     private String gender;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
+
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private Boolean isVerified;
 
     public User() {
     }
