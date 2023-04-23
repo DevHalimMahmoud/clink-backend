@@ -1,7 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.clinic.entity;
 
 import com.abdelhalim.egypt.clinics.api.address.entity.Address;
-import com.abdelhalim.egypt.clinics.api.doctor.entity.Doctor;
+import com.abdelhalim.egypt.clinics.api.user.entity.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -27,7 +27,7 @@ public class Clinic {
 
     @OneToMany
     @JoinColumn(name = "clinic_id")
-    private List<Doctor> doctorList;
+    private List<User> userList;
 
     public Long getId() {
         return id;
@@ -78,11 +78,11 @@ public class Clinic {
     }
 
 
-    public List<Doctor> getDoctorList() {
-        return doctorList;
+    public List<User> getDoctorList() {
+        return userList;
     }
 
-    public void setDoctorList(List<Doctor> doctorList) {
-        this.doctorList = doctorList;
+    public void setDoctorList(List<User> userList) {
+        this.userList = userList;
     }
 }

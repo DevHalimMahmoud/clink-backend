@@ -1,7 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.clinic.dto;
 
 import com.abdelhalim.egypt.clinics.api.address.entity.Address;
-import com.abdelhalim.egypt.clinics.api.doctor.entity.Doctor;
+import com.abdelhalim.egypt.clinics.api.user.entity.User;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class ClinicDto {
     private String phoneNumber;
     private String nameAr;
     private String image;
-    private List<Doctor> doctorList;
+    private List<User> userList;
 
     public ClinicDto() {
     }
@@ -58,12 +58,12 @@ public class ClinicDto {
         this.image = image;
     }
 
-    public List<Doctor> getDoctorList() {
-        return doctorList;
+    public List<User> getDoctorList() {
+        return userList;
     }
 
-    public void setDoctorList(List<Doctor> doctorList) {
-        this.doctorList = doctorList;
+    public void setDoctorList(List<User> userList) {
+        this.userList = userList;
     }
 
 }

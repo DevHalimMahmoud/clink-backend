@@ -6,7 +6,7 @@ import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDtoWithIds;
 import com.abdelhalim.egypt.clinics.api.clinic.entity.Clinic;
 import com.abdelhalim.egypt.clinics.api.clinic.mapper.ClinicMapper;
 import com.abdelhalim.egypt.clinics.api.clinic.repository.ClinicRepository;
-import com.abdelhalim.egypt.clinics.api.doctor.repository.DoctorRepository;
+import com.abdelhalim.egypt.clinics.api.user.repository.UserRepository;
 import com.abdelhalim.egypt.clinics.utils.Base64Utils;
 import com.abdelhalim.egypt.clinics.utils.ImageUtils;
 import jakarta.transaction.Transactional;
@@ -28,7 +28,7 @@ public class ClinicService {
     @Autowired
     AddressRepository addressRepository;
     @Autowired
-    DoctorRepository doctorRepository;
+    UserRepository userRepository;
     @Autowired
     private ClinicRepository repository;
     @Autowired
@@ -40,7 +40,7 @@ public class ClinicService {
         entity.setNameAr(clinicDto.getNameAr());
         entity.setPhoneNumber(clinicDto.getPhoneNumber());
         entity.setAddressList(addressRepository.findAllById(clinicDto.getAddressIds()));
-        entity.setDoctorList(doctorRepository.findAllById(clinicDto.getDoctorIds()));
+        entity.setDoctorList(userRepository.findAllById(clinicDto.getDoctorIds()));
         try {
             String extension = Base64Utils.getFileExtensionFromBase64(clinicDto.getImage());
             byte[] decodedBytes = Base64.getDecoder().decode(clinicDto.getImage().split(",")[1]);
@@ -77,7 +77,7 @@ public class ClinicService {
         clinic1.setImage(clinic.getImage());
         clinic1.setNameAr(clinic.getNameAr());
         clinic1.setAddressList(addressRepository.findAllById(clinic.getAddressIds()));
-        clinic1.setDoctorList(doctorRepository.findAllById(clinic.getDoctorIds()));
+        clinic1.setDoctorList(userRepository.findAllById(clinic.getDoctorIds()));
         try {
             ImageUtils.deleteImage("clink-3b1fe.appspot.com", "specialty/" + id);
             String extension = Base64Utils.getFileExtensionFromBase64(clinic.getImage());

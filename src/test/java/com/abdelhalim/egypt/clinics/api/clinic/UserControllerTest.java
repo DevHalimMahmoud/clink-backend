@@ -14,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class DoctorControllerTest {
+class UserControllerTest {
     private static final String BASE_URL = "http://localhost:8080/api/doctor";
 
     RequestSpecification requestSpec = new RequestSpecBuilder()

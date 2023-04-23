@@ -1,10 +1,10 @@
-package com.abdelhalim.egypt.clinics.api.doctor.service;
+package com.abdelhalim.egypt.clinics.api.user.service;
 
-import com.abdelhalim.egypt.clinics.api.doctor.dto.DoctorDto;
-import com.abdelhalim.egypt.clinics.api.doctor.dto.DoctorDtoWithSpecialityId;
-import com.abdelhalim.egypt.clinics.api.doctor.entity.Doctor;
-import com.abdelhalim.egypt.clinics.api.doctor.mapper.DoctorDtoMapper;
-import com.abdelhalim.egypt.clinics.api.doctor.repository.DoctorRepository;
+import com.abdelhalim.egypt.clinics.api.user.dto.UserDto;
+import com.abdelhalim.egypt.clinics.api.user.dto.UserDtoWithSpecialityId;
+import com.abdelhalim.egypt.clinics.api.user.entity.User;
+import com.abdelhalim.egypt.clinics.api.user.mapper.UserDtoMapper;
+import com.abdelhalim.egypt.clinics.api.user.repository.UserRepository;
 import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
 import com.abdelhalim.egypt.clinics.api.specialty.repository.SpecialtyRepository;
 import com.abdelhalim.egypt.clinics.utils.Base64Utils;
@@ -25,24 +25,24 @@ import java.util.List;
 @Slf4j
 @Service
 @Transactional
-public class DoctorService {
+public class UserService {
     @Autowired
     private SpecialtyRepository specialtyRepository;
     @Autowired
-    private DoctorRepository repository;
+    private UserRepository repository;
     @Autowired
-    private DoctorDtoMapper doctorDtoMapper;
+    private UserDtoMapper userDtoMapper;
 
-    public void save(DoctorDtoWithSpecialityId doctorDtoWithSpecialityId) {
-        Doctor entity = new Doctor();
-        entity.setName(doctorDtoWithSpecialityId.getName());
-        entity.setNameAr(doctorDtoWithSpecialityId.getNameAr());
-        List<Specialty> specialtyList = new ArrayList<>(specialtyRepository.findAllById(doctorDtoWithSpecialityId.getSpecialityIds()));
+    public void save(UserDtoWithSpecialityId userDtoWithSpecialityId) {
+        User entity = new User();
+        entity.setName(userDtoWithSpecialityId.getName());
+        entity.setNameAr(userDtoWithSpecialityId.getNameAr());
+        List<Specialty> specialtyList = new ArrayList<>(specialtyRepository.findAllById(userDtoWithSpecialityId.getSpecialityIds()));
         entity.setSpecialtyList(specialtyList);
 
         try {
-            String extension = Base64Utils.getFileExtensionFromBase64(doctorDtoWithSpecialityId.getImage());
-            byte[] decodedBytes = Base64.getDecoder().decode(doctorDtoWithSpecialityId.getImage().split(",")[1]);
+            String extension = Base64Utils.getFileExtensionFromBase64(userDtoWithSpecialityId.getImage());
+            byte[] decodedBytes = Base64.getDecoder().decode(userDtoWithSpecialityId.getImage().split(",")[1]);
 
             String url = ImageUtils.uploadObjectFromMemory("clink-3b1fe.appspot.com", "doctor/" + entity.getId(), decodedBytes, extension);
             entity.setImage(url);
@@ -57,32 +57,32 @@ public class DoctorService {
         repository.deleteById(id);
     }
 
-    public DoctorDto findById(Long id) {
+    public UserDto findById(Long id) {
 
-        return doctorDtoMapper.toDto(repository.findById(id).orElseThrow());
+        return userDtoMapper.toDto(repository.findById(id).orElseThrow());
     }
 
-    public Page<Doctor> findByCondition(Pageable pageable) {
-        Page<Doctor> entityPage = repository.findAll(pageable);
-        List<Doctor> entities = entityPage.getContent();
+    public Page<User> findByCondition(Pageable pageable) {
+        Page<User> entityPage = repository.findAll(pageable);
+        List<User> entities = entityPage.getContent();
         return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
     }
 
-    public void update(Long id, DoctorDtoWithSpecialityId doctor) {
+    public void update(Long id, UserDtoWithSpecialityId doctor) {
 
-        Doctor doctor1 = repository.getReferenceById(id);
-        doctor1.setName(doctor.getName());
-        doctor1.setNameAr(doctor.getNameAr());
+        User user1 = repository.getReferenceById(id);
+        user1.setName(doctor.getName());
+        user1.setNameAr(doctor.getNameAr());
         List<Specialty> specialtyList = new ArrayList<>(specialtyRepository.findAllById(doctor.getSpecialityIds()));
-        doctor1.setSpecialtyList(specialtyList);
+        user1.setSpecialtyList(specialtyList);
         try {
             ImageUtils.deleteImage("clink-3b1fe.appspot.com", "doctor/" + id);
             String extension = Base64Utils.getFileExtensionFromBase64(doctor.getImage());
             byte[] decodedBytes = Base64.getDecoder().decode(doctor.getImage().split(",")[1]);
 
             String url = ImageUtils.uploadObjectFromMemory("clink-3b1fe.appspot.com", "specialty/" + id, decodedBytes, extension);
-            doctor1.setImage(url);
-            repository.save(doctor1);
+            user1.setImage(url);
+            repository.save(user1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

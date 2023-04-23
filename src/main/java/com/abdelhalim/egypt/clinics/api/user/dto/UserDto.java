@@ -1,15 +1,18 @@
-package com.abdelhalim.egypt.clinics.api.doctor.dto;
+package com.abdelhalim.egypt.clinics.api.user.dto;
+
+import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
 
 import java.util.List;
 
-public class DoctorDtoWithSpecialityId {
+public class UserDto {
 
     private String name;
     private String nameAr;
     private String image;
+    private List<Specialty> specialtyList;
 
-
-    private List<Long> specialityIds;
+    public UserDto() {
+    }
 
     public String getName() {
         return this.name;
@@ -27,6 +30,10 @@ public class DoctorDtoWithSpecialityId {
         this.nameAr = nameAr;
     }
 
+    public void setName_ar(String name_ar) {
+        this.nameAr = name_ar;
+    }
+
     public String getImage() {
         return image;
     }
@@ -35,12 +42,11 @@ public class DoctorDtoWithSpecialityId {
         this.image = image;
     }
 
-
-    public List<Long> getSpecialityIds() {
-        return specialityIds;
+    public List<Specialty> getSpecialtyList() {
+        return specialtyList;
     }
 
-    public void setSpecialityIds(List<Long> specialityIds) {
-        this.specialityIds = specialityIds;
+    public void setSpecialtyList(List<Specialty> specialtyList) {
+        this.specialtyList = specialtyList;
     }
 }
