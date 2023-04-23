@@ -2,7 +2,7 @@ package com.abdelhalim.egypt.clinics.api.address.controller;
 
 import com.abdelhalim.egypt.clinics.api.address.dto.AddressDto;
 import com.abdelhalim.egypt.clinics.api.address.dto.AddressDtoWithGovernorateId;
-import com.abdelhalim.egypt.clinics.api.address.entity.Address;
+import com.abdelhalim.egypt.clinics.entities.Address;
 import com.abdelhalim.egypt.clinics.api.address.service.AddressService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

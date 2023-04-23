@@ -1,8 +1,8 @@
 package com.abdelhalim.egypt.clinics.api.governorate.service;
 
 import com.abdelhalim.egypt.clinics.api.governorate.dto.GovernorateDto;
-import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
-import com.abdelhalim.egypt.clinics.api.governorate.mapper.GovernorateMapper;
+import com.abdelhalim.egypt.clinics.entities.Governorate;
+import com.abdelhalim.egypt.clinics.api.governorate.mapper.GovernorateMapperBase;
 import com.abdelhalim.egypt.clinics.api.governorate.repository.GovernorateRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class GovernorateService {
     @Autowired
     private GovernorateRepository repository;
     @Autowired
-    private GovernorateMapper governorateMapper;
+    private GovernorateMapperBase governorateMapper;
 
     public GovernorateDto save(GovernorateDto governorateDto) {
         Governorate entity = governorateMapper.toEntity(governorateDto);

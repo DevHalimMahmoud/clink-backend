@@ -1,7 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.specialty.controller;
 
 import com.abdelhalim.egypt.clinics.api.specialty.dto.SpecialtyDto;
-import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
+import com.abdelhalim.egypt.clinics.entities.Specialty;
 import com.abdelhalim.egypt.clinics.api.specialty.service.SpecialtyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

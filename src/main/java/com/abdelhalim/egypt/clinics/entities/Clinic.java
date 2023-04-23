@@ -1,7 +1,5 @@
-package com.abdelhalim.egypt.clinics.api.clinic.entity;
+package com.abdelhalim.egypt.clinics.entities;
 
-import com.abdelhalim.egypt.clinics.api.address.entity.Address;
-import com.abdelhalim.egypt.clinics.api.user.entity.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 

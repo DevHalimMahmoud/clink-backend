@@ -1,4 +1,4 @@
-package com.abdelhalim.egypt.clinics.api.specialty.entity;
+package com.abdelhalim.egypt.clinics.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

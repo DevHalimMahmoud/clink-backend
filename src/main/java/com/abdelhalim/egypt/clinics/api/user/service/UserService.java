@@ -2,10 +2,10 @@ package com.abdelhalim.egypt.clinics.api.user.service;
 
 import com.abdelhalim.egypt.clinics.api.user.dto.UserDto;
 import com.abdelhalim.egypt.clinics.api.user.dto.UserDtoWithSpecialityId;
-import com.abdelhalim.egypt.clinics.api.user.entity.User;
-import com.abdelhalim.egypt.clinics.api.user.mapper.UserDtoMapper;
+import com.abdelhalim.egypt.clinics.entities.User;
+import com.abdelhalim.egypt.clinics.api.user.mapper.UserDtoMapperBase;
 import com.abdelhalim.egypt.clinics.api.user.repository.UserRepository;
-import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
+import com.abdelhalim.egypt.clinics.entities.Specialty;
 import com.abdelhalim.egypt.clinics.api.specialty.repository.SpecialtyRepository;
 import com.abdelhalim.egypt.clinics.utils.Base64Utils;
 import com.abdelhalim.egypt.clinics.utils.ImageUtils;
@@ -31,7 +31,7 @@ public class UserService {
     @Autowired
     private UserRepository repository;
     @Autowired
-    private UserDtoMapper userDtoMapper;
+    private UserDtoMapperBase userDtoMapper;
 
     public void save(UserDtoWithSpecialityId userDtoWithSpecialityId) {
         User entity = new User();

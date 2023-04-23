@@ -1,7 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.clinic.dto;
 
-import com.abdelhalim.egypt.clinics.api.address.entity.Address;
-import com.abdelhalim.egypt.clinics.api.user.entity.User;
+import com.abdelhalim.egypt.clinics.entities.Address;
+import com.abdelhalim.egypt.clinics.entities.User;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.governorate.controller;
 
 import com.abdelhalim.egypt.clinics.api.governorate.dto.GovernorateDto;
-import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
+import com.abdelhalim.egypt.clinics.entities.Governorate;
 import com.abdelhalim.egypt.clinics.api.governorate.service.GovernorateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package com.abdelhalim.egypt.clinics.api.user.controller;
 
 import com.abdelhalim.egypt.clinics.api.user.dto.UserDto;
 import com.abdelhalim.egypt.clinics.api.user.dto.UserDtoWithSpecialityId;
-import com.abdelhalim.egypt.clinics.api.user.entity.User;
+import com.abdelhalim.egypt.clinics.entities.User;
 import com.abdelhalim.egypt.clinics.api.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

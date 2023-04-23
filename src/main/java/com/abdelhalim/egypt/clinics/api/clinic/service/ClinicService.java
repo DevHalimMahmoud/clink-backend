@@ -3,8 +3,8 @@ package com.abdelhalim.egypt.clinics.api.clinic.service;
 import com.abdelhalim.egypt.clinics.api.address.repository.AddressRepository;
 import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDto;
 import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDtoWithIds;
-import com.abdelhalim.egypt.clinics.api.clinic.entity.Clinic;
-import com.abdelhalim.egypt.clinics.api.clinic.mapper.ClinicMapper;
+import com.abdelhalim.egypt.clinics.api.clinic.mapper.ClinicMapperBase;
+import com.abdelhalim.egypt.clinics.entities.Clinic;
 import com.abdelhalim.egypt.clinics.api.clinic.repository.ClinicRepository;
 import com.abdelhalim.egypt.clinics.api.user.repository.UserRepository;
 import com.abdelhalim.egypt.clinics.utils.Base64Utils;
@@ -32,7 +32,7 @@ public class ClinicService {
     @Autowired
     private ClinicRepository repository;
     @Autowired
-    private ClinicMapper clinicMapper;
+    private ClinicMapperBase clinicMapper;
 
     public void save(ClinicDtoWithIds clinicDto) {
         Clinic entity = new Clinic();

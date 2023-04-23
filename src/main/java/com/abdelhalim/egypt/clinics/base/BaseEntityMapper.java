@@ -3,7 +3,7 @@ package com.abdelhalim.egypt.clinics.base;
 import java.util.List;
 import java.util.Set;
 
-public interface EntityMapper<D, E> {
+public interface BaseEntityMapper<D, E> {
 
     E toEntity(D dto);
 

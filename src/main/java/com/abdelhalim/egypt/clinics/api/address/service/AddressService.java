@@ -2,8 +2,8 @@ package com.abdelhalim.egypt.clinics.api.address.service;
 
 import com.abdelhalim.egypt.clinics.api.address.dto.AddressDto;
 import com.abdelhalim.egypt.clinics.api.address.dto.AddressDtoWithGovernorateId;
-import com.abdelhalim.egypt.clinics.api.address.entity.Address;
-import com.abdelhalim.egypt.clinics.api.address.mapper.AddressMapper;
+import com.abdelhalim.egypt.clinics.api.address.mapper.AddressMapperBase;
+import com.abdelhalim.egypt.clinics.entities.Address;
 import com.abdelhalim.egypt.clinics.api.address.repository.AddressRepository;
 import com.abdelhalim.egypt.clinics.api.governorate.repository.GovernorateRepository;
 import jakarta.transaction.Transactional;
@@ -23,7 +23,7 @@ public class AddressService {
     @Autowired
     private AddressRepository repository;
     @Autowired
-    private AddressMapper doctorMapper;
+    private AddressMapperBase doctorMapper;
     @Autowired
     private GovernorateRepository governorateRepository;
 

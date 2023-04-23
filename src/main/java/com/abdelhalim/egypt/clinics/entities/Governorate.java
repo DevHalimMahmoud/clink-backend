@@ -1,6 +1,6 @@
-package com.abdelhalim.egypt.clinics.api.governorate.entity;
+package com.abdelhalim.egypt.clinics.entities;
 
-import com.abdelhalim.egypt.clinics.api.address.entity.Address;
+import com.abdelhalim.egypt.clinics.entities.Address;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;

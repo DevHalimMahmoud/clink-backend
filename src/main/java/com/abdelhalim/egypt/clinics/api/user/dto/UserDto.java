@@ -1,6 +1,6 @@
 package com.abdelhalim.egypt.clinics.api.user.dto;
 
-import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
+import com.abdelhalim.egypt.clinics.entities.Specialty;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.abdelhalim.egypt.clinics.api.clinic.controller;
 
 import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDto;
 import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDtoWithIds;
-import com.abdelhalim.egypt.clinics.api.clinic.entity.Clinic;
+import com.abdelhalim.egypt.clinics.entities.Clinic;
 import com.abdelhalim.egypt.clinics.api.clinic.service.ClinicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.abdelhalim.egypt.clinics.api.specialty.service;
 
 import com.abdelhalim.egypt.clinics.api.specialty.dto.SpecialtyDto;
-import com.abdelhalim.egypt.clinics.api.specialty.entity.Specialty;
-import com.abdelhalim.egypt.clinics.api.specialty.mapper.SpecialtyMapper;
+import com.abdelhalim.egypt.clinics.entities.Specialty;
+import com.abdelhalim.egypt.clinics.api.specialty.mapper.SpecialtyMapperBase;
 import com.abdelhalim.egypt.clinics.api.specialty.repository.SpecialtyRepository;
 import com.abdelhalim.egypt.clinics.utils.Base64Utils;
 import com.abdelhalim.egypt.clinics.utils.ImageUtils;
@@ -26,7 +26,7 @@ public class SpecialtyService {
     @Autowired
     private SpecialtyRepository repository;
     @Autowired
-    private SpecialtyMapper specialtyMapper;
+    private SpecialtyMapperBase specialtyMapper;
 
     public void save(SpecialtyDto specialtyDto) {
         Specialty entity = specialtyMapper.toEntity(specialtyDto);

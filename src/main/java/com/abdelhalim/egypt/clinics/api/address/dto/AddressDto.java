@@ -1,6 +1,6 @@
 package com.abdelhalim.egypt.clinics.api.address.dto;
 
-import com.abdelhalim.egypt.clinics.api.governorate.entity.Governorate;
+import com.abdelhalim.egypt.clinics.entities.Governorate;
 
 public class AddressDto {
 
