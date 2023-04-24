@@ -1,53 +1,47 @@
 package com.abdelhalim.egypt.clinics.api.user.controller;
 
-import com.abdelhalim.egypt.clinics.api.user.dto.UserDto;
-import com.abdelhalim.egypt.clinics.api.user.dto.UserDtoWithSpecialityId;
-import com.abdelhalim.egypt.clinics.entities.User;
+import com.abdelhalim.egypt.clinics.api.user.dto.RegisterRequestDto;
 import com.abdelhalim.egypt.clinics.api.user.service.UserService;
+import com.abdelhalim.egypt.clinics.shared_models.AuthenticationRequest;
+import com.abdelhalim.egypt.clinics.shared_models.AuthenticationResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/api/doctor")
+import java.io.IOException;
+
+@RequestMapping("/api/v1/no_auth/user")
 @RestController
 @Slf4j
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserService service;
 
-    @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated UserDtoWithSpecialityId userDtoWithSpecialityId) {
-        userService.save(userDtoWithSpecialityId);
-        return ResponseEntity.ok().build();
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(
+            @RequestBody RegisterRequestDto request
+    ) {
+        return ResponseEntity.ok(service.register(request));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDto> findById(@PathVariable("id") Long id) {
-        UserDto governorate = userService.findById(id);
-        return ResponseEntity.ok(governorate);
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(
+            @RequestBody AuthenticationRequest request
+    ) {
+        return ResponseEntity.ok(service.authenticate(request));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        userService.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/page-query")
-    public ResponseEntity<Page<User>> pageQuery(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<User> doctorPage = userService.findByCondition(pageable);
-        return ResponseEntity.ok(doctorPage);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody @Validated UserDtoWithSpecialityId doctor) {
-        userService.update(id, doctor);
-        return ResponseEntity.ok().build();
+    @PostMapping("/refresh-token")
+    public void refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        service.refreshToken(request, response);
     }
 }

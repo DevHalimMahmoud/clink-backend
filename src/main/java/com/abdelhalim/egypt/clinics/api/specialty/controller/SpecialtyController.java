@@ -1,8 +1,8 @@
 package com.abdelhalim.egypt.clinics.api.specialty.controller;
 
 import com.abdelhalim.egypt.clinics.api.specialty.dto.SpecialtyDto;
-import com.abdelhalim.egypt.clinics.entities.Specialty;
 import com.abdelhalim.egypt.clinics.api.specialty.service.SpecialtyService;
+import com.abdelhalim.egypt.clinics.entities.specialty.Specialty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/speciality")
+@RequestMapping("/api/v1/no_auth/speciality")
 @RestController
 @Slf4j
 public class SpecialtyController {

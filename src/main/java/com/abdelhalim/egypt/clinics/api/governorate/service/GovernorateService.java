@@ -1,9 +1,9 @@
 package com.abdelhalim.egypt.clinics.api.governorate.service;
 
 import com.abdelhalim.egypt.clinics.api.governorate.dto.GovernorateDto;
-import com.abdelhalim.egypt.clinics.entities.Governorate;
 import com.abdelhalim.egypt.clinics.api.governorate.mapper.GovernorateMapperBase;
-import com.abdelhalim.egypt.clinics.api.governorate.repository.GovernorateRepository;
+import com.abdelhalim.egypt.clinics.entities.governorate.Governorate;
+import com.abdelhalim.egypt.clinics.entities.governorate.GovernorateRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

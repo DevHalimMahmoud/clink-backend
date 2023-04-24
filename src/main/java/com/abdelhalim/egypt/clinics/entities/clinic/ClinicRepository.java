@@ -1,6 +1,5 @@
-package com.abdelhalim.egypt.clinics.api.clinic.repository;
+package com.abdelhalim.egypt.clinics.entities.clinic;
 
-import com.abdelhalim.egypt.clinics.entities.Clinic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

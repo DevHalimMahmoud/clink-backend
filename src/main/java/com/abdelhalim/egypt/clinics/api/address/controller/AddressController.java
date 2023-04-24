@@ -2,8 +2,8 @@ package com.abdelhalim.egypt.clinics.api.address.controller;
 
 import com.abdelhalim.egypt.clinics.api.address.dto.AddressDto;
 import com.abdelhalim.egypt.clinics.api.address.dto.AddressDtoWithGovernorateId;
-import com.abdelhalim.egypt.clinics.entities.Address;
 import com.abdelhalim.egypt.clinics.api.address.service.AddressService;
+import com.abdelhalim.egypt.clinics.entities.address.Address;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/address")
+@RequestMapping("/api/v1/no_auth/address")
 @RestController
 @Slf4j
 public class AddressController {

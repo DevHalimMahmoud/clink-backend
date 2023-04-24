@@ -1,26 +1,32 @@
 package com.abdelhalim.egypt.clinics.api.user.service;
 
-import com.abdelhalim.egypt.clinics.api.user.dto.UserDto;
-import com.abdelhalim.egypt.clinics.api.user.dto.UserDtoWithSpecialityId;
-import com.abdelhalim.egypt.clinics.entities.User;
-import com.abdelhalim.egypt.clinics.api.user.mapper.UserDtoMapperBase;
-import com.abdelhalim.egypt.clinics.api.user.repository.UserRepository;
-import com.abdelhalim.egypt.clinics.entities.Specialty;
-import com.abdelhalim.egypt.clinics.api.specialty.repository.SpecialtyRepository;
-import com.abdelhalim.egypt.clinics.utils.Base64Utils;
+import com.abdelhalim.egypt.clinics.api.user.dto.RegisterRequestDto;
+import com.abdelhalim.egypt.clinics.config.JwtService;
+import com.abdelhalim.egypt.clinics.entities.specialty.SpecialtyRepository;
+import com.abdelhalim.egypt.clinics.entities.token.Token;
+import com.abdelhalim.egypt.clinics.entities.token.TokenRepository;
+import com.abdelhalim.egypt.clinics.entities.token.TokenType;
+import com.abdelhalim.egypt.clinics.entities.user.Role;
+import com.abdelhalim.egypt.clinics.entities.user.User;
+import com.abdelhalim.egypt.clinics.entities.user.UserRepository;
+import com.abdelhalim.egypt.clinics.shared_models.AuthenticationRequest;
+import com.abdelhalim.egypt.clinics.shared_models.AuthenticationResponse;
 import com.abdelhalim.egypt.clinics.utils.ImageUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -31,60 +37,105 @@ public class UserService {
     @Autowired
     private UserRepository repository;
     @Autowired
-    private UserDtoMapperBase userDtoMapper;
+    private TokenRepository tokenRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtService jwtService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-    public void save(UserDtoWithSpecialityId userDtoWithSpecialityId) {
-        User entity = new User();
-        entity.setName(userDtoWithSpecialityId.getName());
-        entity.setNameAr(userDtoWithSpecialityId.getNameAr());
-        List<Specialty> specialtyList = new ArrayList<>(specialtyRepository.findAllById(userDtoWithSpecialityId.getSpecialityIds()));
-        entity.setSpecialtyList(specialtyList);
+    public AuthenticationResponse register(RegisterRequestDto request) {
 
-        try {
-            String extension = Base64Utils.getFileExtensionFromBase64(userDtoWithSpecialityId.getImage());
-            byte[] decodedBytes = Base64.getDecoder().decode(userDtoWithSpecialityId.getImage().split(",")[1]);
+        var user = User.builder()
+                .name(request.getName())
+                .nameAr(request.getNameAr())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .gender(request.getGender())
+                .specialtyList(new ArrayList<>(specialtyRepository.findAllById(request.getSpecialityIds())))
+                .role(Role.USER)
+                .isVerified(false)
+                .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
+                .build();
+        user.setImage(ImageUtils.saveImageBase64(request.getImage(), "user/" + user.getId()));
 
-            String url = ImageUtils.uploadObjectFromMemory("clink-3b1fe.appspot.com", "doctor/" + entity.getId(), decodedBytes, extension);
-            entity.setImage(url);
-            repository.save(entity);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        var savedUser = repository.save(user);
+        var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+        saveUserToken(savedUser, jwtToken);
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
+        var user = repository.findByEmail(request.getEmail())
+                .orElseThrow();
+        var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+        revokeAllUserTokens(user);
+        saveUserToken(user, jwtToken);
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    private void saveUserToken(User user, String jwtToken) {
+        var token = Token.builder()
+                .user(user)
+                .token(jwtToken)
+                .tokenType(TokenType.BEARER)
+                .expired(false)
+                .revoked(false)
+                .build();
+        tokenRepository.save(token);
+    }
+
+    private void revokeAllUserTokens(User user) {
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+        if (validUserTokens.isEmpty())
+            return;
+        validUserTokens.forEach(token -> {
+            token.setExpired(true);
+            token.setRevoked(true);
+        });
+        tokenRepository.saveAll(validUserTokens);
+    }
+
+    public void refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        final String refreshToken;
+        final String userEmail;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return;
         }
-    }
-
-    public void deleteById(Long id) {
-        ImageUtils.deleteImage("clink-3b1fe.appspot.com", "doctor/" + id);
-        repository.deleteById(id);
-    }
-
-    public UserDto findById(Long id) {
-
-        return userDtoMapper.toDto(repository.findById(id).orElseThrow());
-    }
-
-    public Page<User> findByCondition(Pageable pageable) {
-        Page<User> entityPage = repository.findAll(pageable);
-        List<User> entities = entityPage.getContent();
-        return new PageImpl<>(entities, pageable, entityPage.getTotalElements());
-    }
-
-    public void update(Long id, UserDtoWithSpecialityId doctor) {
-
-        User user1 = repository.getReferenceById(id);
-        user1.setName(doctor.getName());
-        user1.setNameAr(doctor.getNameAr());
-        List<Specialty> specialtyList = new ArrayList<>(specialtyRepository.findAllById(doctor.getSpecialityIds()));
-        user1.setSpecialtyList(specialtyList);
-        try {
-            ImageUtils.deleteImage("clink-3b1fe.appspot.com", "doctor/" + id);
-            String extension = Base64Utils.getFileExtensionFromBase64(doctor.getImage());
-            byte[] decodedBytes = Base64.getDecoder().decode(doctor.getImage().split(",")[1]);
-
-            String url = ImageUtils.uploadObjectFromMemory("clink-3b1fe.appspot.com", "specialty/" + id, decodedBytes, extension);
-            user1.setImage(url);
-            repository.save(user1);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        refreshToken = authHeader.substring(7);
+        userEmail = jwtService.extractUsername(refreshToken);
+        if (userEmail != null) {
+            var user = this.repository.findByEmail(userEmail)
+                    .orElseThrow();
+            if (jwtService.isTokenValid(refreshToken, user)) {
+                var accessToken = jwtService.generateToken(user);
+                revokeAllUserTokens(user);
+                saveUserToken(user, accessToken);
+                var authResponse = AuthenticationResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .build();
+                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+            }
         }
     }
 }

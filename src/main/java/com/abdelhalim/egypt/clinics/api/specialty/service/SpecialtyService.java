@@ -1,9 +1,9 @@
 package com.abdelhalim.egypt.clinics.api.specialty.service;
 
 import com.abdelhalim.egypt.clinics.api.specialty.dto.SpecialtyDto;
-import com.abdelhalim.egypt.clinics.entities.Specialty;
-import com.abdelhalim.egypt.clinics.api.specialty.mapper.SpecialtyMapperBase;
-import com.abdelhalim.egypt.clinics.api.specialty.repository.SpecialtyRepository;
+import com.abdelhalim.egypt.clinics.api.specialty.mapper.SpecialtyMapper;
+import com.abdelhalim.egypt.clinics.entities.specialty.Specialty;
+import com.abdelhalim.egypt.clinics.entities.specialty.SpecialtyRepository;
 import com.abdelhalim.egypt.clinics.utils.Base64Utils;
 import com.abdelhalim.egypt.clinics.utils.ImageUtils;
 import jakarta.transaction.Transactional;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 
 @Slf4j
@@ -26,10 +27,14 @@ public class SpecialtyService {
     @Autowired
     private SpecialtyRepository repository;
     @Autowired
-    private SpecialtyMapperBase specialtyMapper;
+    private SpecialtyMapper specialtyMapper;
 
     public void save(SpecialtyDto specialtyDto) {
-        Specialty entity = specialtyMapper.toEntity(specialtyDto);
+        Specialty entity = Specialty.builder()
+                .name(specialtyDto.getName())
+                .nameAr(specialtyDto.getNameAr())
+                .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
+                .build();
 
         try {
             String extension = Base64Utils.getFileExtensionFromBase64(specialtyDto.getImage());

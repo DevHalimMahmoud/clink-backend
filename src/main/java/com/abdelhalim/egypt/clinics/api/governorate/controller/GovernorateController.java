@@ -1,8 +1,8 @@
 package com.abdelhalim.egypt.clinics.api.governorate.controller;
 
 import com.abdelhalim.egypt.clinics.api.governorate.dto.GovernorateDto;
-import com.abdelhalim.egypt.clinics.entities.Governorate;
 import com.abdelhalim.egypt.clinics.api.governorate.service.GovernorateService;
+import com.abdelhalim.egypt.clinics.entities.governorate.Governorate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/governorate")
+@RequestMapping("/api/v1/no_auth/governorate")
 @RestController
 @Slf4j
 public class GovernorateController {

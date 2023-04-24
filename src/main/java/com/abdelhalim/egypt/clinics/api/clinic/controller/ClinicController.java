@@ -2,8 +2,8 @@ package com.abdelhalim.egypt.clinics.api.clinic.controller;
 
 import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDto;
 import com.abdelhalim.egypt.clinics.api.clinic.dto.ClinicDtoWithIds;
-import com.abdelhalim.egypt.clinics.entities.Clinic;
 import com.abdelhalim.egypt.clinics.api.clinic.service.ClinicService;
+import com.abdelhalim.egypt.clinics.entities.clinic.Clinic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/clinic")
+@RequestMapping("/api/v1/no_auth/clinic")
 @RestController
 @Slf4j
 public class ClinicController {

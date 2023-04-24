@@ -8,6 +8,7 @@ import com.google.firebase.cloud.StorageClient;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 public class ImageUtils {
@@ -39,4 +40,15 @@ public class ImageUtils {
         System.out.println("Object " + objectName + " was deleted from " + bucketName);
     }
 
+    public static String saveImageBase64(String base64Image, String objectPath) {
+        try {
+            String extension = Base64Utils.getFileExtensionFromBase64(base64Image);
+            byte[] decodedBytes = Base64.getDecoder().decode(base64Image.split(",")[1]);
+
+            return ImageUtils.uploadObjectFromMemory("clink-3b1fe.appspot.com", objectPath, decodedBytes, extension);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
