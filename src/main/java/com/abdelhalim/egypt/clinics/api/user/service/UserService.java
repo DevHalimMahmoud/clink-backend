@@ -25,7 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 @Slf4j
@@ -53,7 +52,6 @@ public class UserService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .gender(request.getGender())
-                .specialtyList(new ArrayList<>(specialtyRepository.findAllById(request.getSpecialityIds())))
                 .role(Role.USER)
                 .isVerified(false)
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)

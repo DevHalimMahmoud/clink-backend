@@ -1,6 +1,6 @@
-package com.abdelhalim.egypt.clinics.entities.clinic;
+package com.abdelhalim.egypt.clinics.entities.doctor;
 
-import com.abdelhalim.egypt.clinics.entities.address.Address;
+import com.abdelhalim.egypt.clinics.entities.specialty.Specialty;
 import com.abdelhalim.egypt.clinics.entities.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Clinic {
+public class Doctor {
     @Id
     private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
     @Column(nullable = false)
@@ -25,13 +25,15 @@ public class Clinic {
     private String nameAr;
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
-    @OneToMany
-    @JoinColumn(name = "clinic_id")
-    private List<Address> addressList;
-    @Column(nullable = false)
-    private String phoneNumber;
+//    @OneToMany
+//    @JoinColumn(name = "clinic_id")
+//    private List<Address> addressList;
 
     @OneToMany
-    @JoinColumn(name = "clinic_id")
+    @JoinColumn(name = "doctor_id")
     private List<User> userList;
+
+    @OneToMany
+    @JoinColumn(name = "doctor_id")
+    private List<Specialty> specialtyList;
 }

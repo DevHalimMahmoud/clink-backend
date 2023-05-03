@@ -1,6 +1,5 @@
 package com.abdelhalim.egypt.clinics.entities.user;
 
-import com.abdelhalim.egypt.clinics.entities.specialty.Specialty;
 import com.abdelhalim.egypt.clinics.entities.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -53,10 +52,6 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-    @OneToMany
-    @JoinColumn(name = "doctor_id")
-    private List<Specialty> specialtyList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
