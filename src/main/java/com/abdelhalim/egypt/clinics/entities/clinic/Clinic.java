@@ -1,6 +1,7 @@
-package com.abdelhalim.egypt.clinics.entities.user;
+package com.abdelhalim.egypt.clinics.entities.clinic;
 
 import com.abdelhalim.egypt.clinics.entities.address.Address;
+import com.abdelhalim.egypt.clinics.entities.doctor.Doctor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,44 +18,39 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "_user")
 @DynamicUpdate
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
+public class Clinic implements UserDetails {
     @Id
     private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, name = "name_ar")
-    private String nameAr;
-
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
 
-
     @Column(nullable = false, unique = true, columnDefinition = "TEXT")
-    private String phone;
+    private String email;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(nullable = false)
+    private String phone;
+
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addressList = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Token> tokens;
-
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Doctor> doctorList = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("USER"));
+        return List.of(new SimpleGrantedAuthority("CLINIC"));
     }
 
     @Override
@@ -64,7 +60,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return phone;
+        return email;
     }
 
     @Override

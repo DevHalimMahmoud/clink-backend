@@ -48,10 +48,9 @@ public class UserService {
         var user = User.builder()
                 .name(request.getName())
                 .nameAr(request.getNameAr())
-                .email(request.getEmail())
+                .phone(request.getPhone())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .gender(request.getGender())
-                .isVerified(false)
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
         user.setImage(ImageUtils.saveImageBase64(request.getImage(), "user/" + user.getId()));
@@ -59,7 +58,7 @@ public class UserService {
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
-        saveUserToken(savedUser, jwtToken);
+//        saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
@@ -73,12 +72,12 @@ public class UserService {
                         request.getPassword()
                 )
         );
-        var user = repository.findByEmail(request.getEmail())
+        var user = repository.findByPhone(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
-        revokeAllUserTokens(user);
-        saveUserToken(user, jwtToken);
+//        revokeAllUserTokens(user);
+//        saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
@@ -87,7 +86,6 @@ public class UserService {
 
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
-                .user(user)
                 .token(jwtToken)
                 .tokenType(TokenType.BEARER)
                 .expired(false)
@@ -120,12 +118,12 @@ public class UserService {
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail != null) {
-            var user = this.repository.findByEmail(userEmail)
+            var user = this.repository.findByPhone(userEmail)
                     .orElseThrow();
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
-                revokeAllUserTokens(user);
-                saveUserToken(user, accessToken);
+//                revokeAllUserTokens(user);
+//                saveUserToken(user, accessToken);
                 var authResponse = AuthenticationResponse.builder()
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)

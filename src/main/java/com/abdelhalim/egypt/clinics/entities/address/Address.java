@@ -1,5 +1,6 @@
 package com.abdelhalim.egypt.clinics.entities.address;
 
+import com.abdelhalim.egypt.clinics.entities.clinic.Clinic;
 import com.abdelhalim.egypt.clinics.entities.governorate.Governorate;
 import com.abdelhalim.egypt.clinics.entities.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,9 +27,12 @@ public class Address {
     @JoinColumn(name = "governorate_id")
     private Governorate governorate;
 
-    @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clinic_id")
+    private Clinic clinic;
 
 }

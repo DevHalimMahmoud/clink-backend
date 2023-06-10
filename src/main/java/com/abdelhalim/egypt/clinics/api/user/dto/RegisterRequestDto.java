@@ -17,7 +17,7 @@ public class RegisterRequestDto {
     private String name;
     private String nameAr;
     private String image;
-    private String email;
+    private String phone;
     private String password;
     private List<Long> specialityIds;
     private Gender gender;

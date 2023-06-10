@@ -1,8 +1,7 @@
 package com.abdelhalim.egypt.clinics.entities.specialty;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.abdelhalim.egypt.clinics.entities.doctor.Doctor;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,4 +25,9 @@ public class Specialty {
     private String nameAr;
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+
 }

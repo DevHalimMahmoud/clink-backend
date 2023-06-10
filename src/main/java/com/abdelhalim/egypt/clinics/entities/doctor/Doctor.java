@@ -1,5 +1,7 @@
 package com.abdelhalim.egypt.clinics.entities.doctor;
 
+import com.abdelhalim.egypt.clinics.entities.address.Address;
+import com.abdelhalim.egypt.clinics.entities.clinic.Clinic;
 import com.abdelhalim.egypt.clinics.entities.specialty.Specialty;
 import com.abdelhalim.egypt.clinics.entities.user.User;
 import jakarta.persistence.*;
@@ -8,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,15 +28,11 @@ public class Doctor {
     private String nameAr;
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
-//    @OneToMany
-//    @JoinColumn(name = "clinic_id")
-//    private List<Address> addressList;
 
-    @OneToMany
-    @JoinColumn(name = "doctor_id")
-    private List<User> userList;
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Specialty> specialtyList = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "doctor_id")
-    private List<Specialty> specialtyList;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clinic_id")
+    private Clinic clinic;
 }
