@@ -6,7 +6,7 @@ spring:
   datasource:
     #you can use supabase or h2
     #url: jdbc:h2:mem:clink
-    url: jdbc:postgresql://db.kjknwsxdlvdajnbhumwu.supabase.co:5432/postgres?user=postgres&password=ModMad@3040
+    url: jdbc:postgresql://db.kjknwsxdlvdajnbhumwu.supabase.co:5432/postgres?user=postgres&password=qFw0vnyUva0qBo1U
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

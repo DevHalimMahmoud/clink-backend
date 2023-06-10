@@ -6,7 +6,6 @@ import com.abdelhalim.egypt.clinics.entities.specialty.SpecialtyRepository;
 import com.abdelhalim.egypt.clinics.entities.token.Token;
 import com.abdelhalim.egypt.clinics.entities.token.TokenRepository;
 import com.abdelhalim.egypt.clinics.entities.token.TokenType;
-import com.abdelhalim.egypt.clinics.entities.user.Role;
 import com.abdelhalim.egypt.clinics.entities.user.User;
 import com.abdelhalim.egypt.clinics.entities.user.UserRepository;
 import com.abdelhalim.egypt.clinics.shared_models.AuthenticationRequest;
@@ -52,7 +51,6 @@ public class UserService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .gender(request.getGender())
-                .role(Role.USER)
                 .isVerified(false)
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
