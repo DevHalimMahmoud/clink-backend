@@ -1,7 +1,6 @@
-package com.abdelhalim.egypt.clinics.entities.clinic;
+package com.abdelhalim.egypt.clinics.entities.laboratory;
 
 import com.abdelhalim.egypt.clinics.entities.address.Address;
-import com.abdelhalim.egypt.clinics.entities.doctor.Doctor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +22,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Clinic implements UserDetails {
+public class Laboratory implements UserDetails {
     @Id
     private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
 
@@ -42,15 +41,12 @@ public class Clinic implements UserDetails {
     @Column(nullable = false)
     private String phone;
 
-    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addressList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Doctor> doctorList = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("CLINIC"));
+        return List.of(new SimpleGrantedAuthority("LABORATORY"));
     }
 
     @Override

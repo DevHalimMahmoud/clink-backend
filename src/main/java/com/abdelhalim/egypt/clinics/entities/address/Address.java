@@ -2,8 +2,9 @@ package com.abdelhalim.egypt.clinics.entities.address;
 
 import com.abdelhalim.egypt.clinics.entities.clinic.Clinic;
 import com.abdelhalim.egypt.clinics.entities.governorate.Governorate;
+import com.abdelhalim.egypt.clinics.entities.hospital.Hospital;
+import com.abdelhalim.egypt.clinics.entities.laboratory.Laboratory;
 import com.abdelhalim.egypt.clinics.entities.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,14 +17,18 @@ import org.hibernate.annotations.DynamicUpdate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false, name = "name_ar")
     private String nameAr;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "governorate_id")
     private Governorate governorate;
 
@@ -34,5 +39,13 @@ public class Address {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clinic_id")
     private Clinic clinic;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "laboratory_id")
+    private Laboratory laboratory;
 
 }
