@@ -25,9 +25,6 @@ public class Address {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, name = "name_ar")
-    private String nameAr;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "governorate_id")
     private Governorate governorate;

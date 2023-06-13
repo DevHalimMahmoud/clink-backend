@@ -30,8 +30,6 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, name = "name_ar")
-    private String nameAr;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;

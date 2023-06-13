@@ -47,7 +47,6 @@ public class UserService {
 
         var user = User.builder()
                 .name(request.getName())
-                .nameAr(request.getNameAr())
                 .phone(request.getPhone())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .gender(request.getGender())

@@ -31,7 +31,6 @@ public class AddressService {
 
         Address entity = new Address();
         entity.setName(doctorDto.getName());
-        entity.setNameAr(doctorDto.getNameAr());
         entity.setGovernorate(governorateRepository.getReferenceById(doctorDto.getGovernorateId()));
         repository.save(entity);
     }
@@ -57,7 +56,6 @@ public class AddressService {
 
         Address address1 = repository.getReferenceById(id);
         address1.setName(address.getName());
-        address1.setNameAr(address.getNameAr());
         address1.setGovernorate(governorateRepository.getReferenceById(address.getGovernorateId()));
         repository.save(address1);
 
