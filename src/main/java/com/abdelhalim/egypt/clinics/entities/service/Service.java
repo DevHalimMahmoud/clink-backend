@@ -28,11 +28,15 @@ public class Service {
     @Column(name = "price")
     private Double price;
 
-    public Service(String name, String nameAr, String description, Double price) {
+    @Column(nullable = false)
+    private Boolean isAccepted = false;
+
+    public Service(String name, String nameAr, String description, Double price, Boolean isAccepted) {
         this.name = name;
         this.nameAr = nameAr;
         this.description = description;
         this.price = price;
+        this.isAccepted = isAccepted;
     }
 
 }
