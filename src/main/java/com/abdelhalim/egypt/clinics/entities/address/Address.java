@@ -25,6 +25,12 @@ public class Address {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String latitude;
+
+    @Column(nullable = false)
+    private String longitude;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "governorate_id")
     private Governorate governorate;
