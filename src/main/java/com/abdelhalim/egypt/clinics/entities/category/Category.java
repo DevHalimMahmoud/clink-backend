@@ -1,5 +1,6 @@
 package com.abdelhalim.egypt.clinics.entities.category;
 
+import com.abdelhalim.egypt.clinics.entities.service.Service;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,5 +23,8 @@ public class Category {
 
     @Column(nullable = false)
     private String description;
+
+    @OneToOne(mappedBy = "category")
+    private Service service;
 
 }

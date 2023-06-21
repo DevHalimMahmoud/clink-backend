@@ -1,7 +1,9 @@
 package com.abdelhalim.egypt.clinics.entities.hospital;
 
 import com.abdelhalim.egypt.clinics.entities.address.Address;
+import com.abdelhalim.egypt.clinics.entities.base_user.BaseUser;
 import com.abdelhalim.egypt.clinics.entities.doctor.Doctor;
+import com.abdelhalim.egypt.clinics.entities.service.Service;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,69 +20,16 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@DynamicUpdate
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Hospital implements UserDetails {
-    @Id
-    private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-
-    @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String imageUrl;
-
-    @Column(nullable = false, unique = true, columnDefinition = "TEXT")
-    private String email;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String password;
-
-    @Column(nullable = false)
-    private String phone;
-
-    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addressList = new ArrayList<>();
+public class Hospital extends BaseUser {
 
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Doctor> doctorList = new ArrayList<>();
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("HOSPITAL"));
+    protected String getRole() {
+        return "HOSPITAL";
     }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
 }
