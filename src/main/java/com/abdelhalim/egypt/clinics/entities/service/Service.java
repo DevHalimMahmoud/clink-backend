@@ -11,6 +11,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @Builder
@@ -37,10 +40,12 @@ public class Service {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "base_user_id")
-    private BaseUser baseUser;
-
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinTable(name = "base_user_id",
+//            joinColumns = @JoinColumn(name = "service_id"),
+//            inverseJoinColumns = @JoinColumn(name = "base_user_id"))
+//    private BaseUser baseUser;
+//
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "laboratory_id")
 //    private Laboratory laboratory;
@@ -52,6 +57,18 @@ public class Service {
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "hospital_id")
 //    private Hospital hospital;
+
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "service_join",
+//            joinColumns = @JoinColumn(name = "service_id"),
+//            inverseJoinColumns = {
+//                    @JoinColumn(name = "clinic_id"),
+//                    @JoinColumn(name = "hospital_id"),
+//                    @JoinColumn(name = "laboratory_id")
+//            }
+//    )
+//    private Set<BaseUser> baseUsers = new HashSet<>();
 
     public Service(String name, String nameAr, String description, Double price) {
         this.name = name;

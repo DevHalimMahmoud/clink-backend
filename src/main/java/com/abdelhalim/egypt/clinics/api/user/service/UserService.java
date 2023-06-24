@@ -2,12 +2,12 @@ package com.abdelhalim.egypt.clinics.api.user.service;
 
 import com.abdelhalim.egypt.clinics.api.user.dto.RegisterRequestDto;
 import com.abdelhalim.egypt.clinics.config.JwtService;
+import com.abdelhalim.egypt.clinics.entities.patient.Patient;
+import com.abdelhalim.egypt.clinics.entities.patient.PatientRepository;
 import com.abdelhalim.egypt.clinics.entities.specialty.SpecialtyRepository;
 import com.abdelhalim.egypt.clinics.entities.token.Token;
 import com.abdelhalim.egypt.clinics.entities.token.TokenRepository;
 import com.abdelhalim.egypt.clinics.entities.token.TokenType;
-import com.abdelhalim.egypt.clinics.entities.user.User;
-import com.abdelhalim.egypt.clinics.entities.user.UserRepository;
 import com.abdelhalim.egypt.clinics.shared_models.AuthenticationRequest;
 import com.abdelhalim.egypt.clinics.shared_models.AuthenticationResponse;
 import com.abdelhalim.egypt.clinics.utils.ImageUtils;
@@ -33,7 +33,7 @@ public class UserService {
     @Autowired
     private SpecialtyRepository specialtyRepository;
     @Autowired
-    private UserRepository repository;
+    private PatientRepository repository;
     @Autowired
     private TokenRepository tokenRepository;
     @Autowired
@@ -45,14 +45,14 @@ public class UserService {
 
     public AuthenticationResponse register(RegisterRequestDto request) {
 
-        var user = User.builder()
-                .name(request.getName())
-                .phone(request.getPhone())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .gender(request.getGender())
-                .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
-                .build();
-        user.setImage(ImageUtils.saveImageBase64(request.getImage(), "user/" + user.getId()));
+        var user = new Patient();
+        user.setName(request.getName());
+        user.setPhone(request.getPhone());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setGender(request.getGender());
+        user.setId(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
+
+        user.setImageUrl(ImageUtils.saveImageBase64(request.getImage(), "user/" + user.getId()));
 
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -83,7 +83,7 @@ public class UserService {
                 .build();
     }
 
-    private void saveUserToken(User user, String jwtToken) {
+    private void saveUserToken(Patient patient, String jwtToken) {
         var token = Token.builder()
                 .token(jwtToken)
                 .tokenType(TokenType.BEARER)
@@ -93,8 +93,8 @@ public class UserService {
         tokenRepository.save(token);
     }
 
-    private void revokeAllUserTokens(User user) {
-        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+    private void revokeAllUserTokens(Patient patient) {
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(patient.getId());
         if (validUserTokens.isEmpty())
             return;
         validUserTokens.forEach(token -> {

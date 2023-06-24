@@ -1,16 +1,16 @@
 package com.abdelhalim.egypt.clinics.entities.address;
 
 import com.abdelhalim.egypt.clinics.entities.base_user.BaseUser;
-import com.abdelhalim.egypt.clinics.entities.clinic.Clinic;
 import com.abdelhalim.egypt.clinics.entities.governorate.Governorate;
-import com.abdelhalim.egypt.clinics.entities.hospital.Hospital;
-import com.abdelhalim.egypt.clinics.entities.laboratory.Laboratory;
-import com.abdelhalim.egypt.clinics.entities.user.User;
+import com.abdelhalim.egypt.clinics.entities.patient.Patient;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @DynamicUpdate
@@ -36,24 +36,17 @@ public class Address {
     @JoinColumn(name = "governorate_id")
     private Governorate governorate;
 
+
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinTable(
+            name = "address_join",
+            joinColumns = @JoinColumn(name = "address_id"),
+            inverseJoinColumns = {
+                    @JoinColumn(name = "id", referencedColumnName = "id"),
 
-        @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "base_user_id")
-    private BaseUser baseUser;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "clinic_id")
-//    private Clinic clinic;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "hospital_id")
-//    private Hospital hospital;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "laboratory_id")
-//    private Laboratory laboratory;
+            }
+    )
+    private BaseUser baseUsers;
 
 }

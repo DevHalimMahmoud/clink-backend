@@ -20,10 +20,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@DynamicUpdate
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Clinic extends BaseUser {
+
+
 
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Doctor> doctorList = new ArrayList<>();

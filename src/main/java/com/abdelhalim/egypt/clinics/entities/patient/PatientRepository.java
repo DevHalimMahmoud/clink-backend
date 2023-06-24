@@ -1,4 +1,4 @@
-package com.abdelhalim.egypt.clinics.entities.user;
+package com.abdelhalim.egypt.clinics.entities.patient;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
+public interface PatientRepository extends JpaRepository<Patient, Long>, JpaSpecificationExecutor<Patient> {
 
 
-    Optional<User> findByPhone(String email);
+    Optional<Patient> findByPhone(String email);
 }

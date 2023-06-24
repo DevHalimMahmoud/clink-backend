@@ -1,6 +1,6 @@
 package com.abdelhalim.egypt.clinics.config;
 
-import com.abdelhalim.egypt.clinics.entities.user.UserRepository;
+import com.abdelhalim.egypt.clinics.entities.patient.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final UserRepository repository;
+    private final PatientRepository repository;
 
     @Bean
     public UserDetailsService userDetailsService() {
