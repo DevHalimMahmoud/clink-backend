@@ -36,11 +36,9 @@ public class BaseUser implements UserDetails {
     @Column(nullable = false)
     private String phone;
 
-    @OneToMany(mappedBy = "baseUsers", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "baseUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addressList = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "baseUsers", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Service> serviceList = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

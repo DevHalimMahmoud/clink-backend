@@ -2,6 +2,7 @@ package com.abdelhalim.egypt.clinics.entities.hospital;
 
 import com.abdelhalim.egypt.clinics.entities.base_user.BaseUser;
 import com.abdelhalim.egypt.clinics.entities.doctor.Doctor;
+import com.abdelhalim.egypt.clinics.entities.service.Service;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -28,6 +29,8 @@ public class Hospital extends BaseUser {
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Doctor> doctorList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "baseUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Service> serviceList = new ArrayList<>();
     @Override
     protected String getRole() {
         return "HOSPITAL";
