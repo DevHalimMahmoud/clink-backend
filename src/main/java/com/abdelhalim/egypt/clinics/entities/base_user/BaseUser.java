@@ -50,6 +50,10 @@ public class BaseUser implements UserDetails {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String getUsername() {
         return email;
@@ -111,10 +115,6 @@ public class BaseUser implements UserDetails {
         this.email = email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -131,11 +131,4 @@ public class BaseUser implements UserDetails {
         this.addressList = addressList;
     }
 
-//    public List<Service> getServiceList() {
-//        return serviceList;
-//    }
-//
-//    public void setServiceList(List<Service> serviceList) {
-//        this.serviceList = serviceList;
-//    }
 }

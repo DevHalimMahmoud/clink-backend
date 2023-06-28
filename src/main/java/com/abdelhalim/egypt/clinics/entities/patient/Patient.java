@@ -1,7 +1,6 @@
 package com.abdelhalim.egypt.clinics.entities.patient;
 
 import com.abdelhalim.egypt.clinics.entities.base_user.BaseUser;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,14 +12,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 public class Patient extends BaseUser {
-
 
 
     @Enumerated(EnumType.STRING)
