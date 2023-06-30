@@ -30,7 +30,7 @@ public class Service {
     @Column(name = "price")
     private Double price;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 

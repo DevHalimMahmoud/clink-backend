@@ -7,11 +7,6 @@ import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @DynamicUpdate
@@ -24,10 +19,9 @@ public class Patient extends BaseUser {
     private Gender gender;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("PATIENT"));
+    protected String getRole() {
+        return "PATIENT";
     }
-
 
     @Override
     public String getUsername() {

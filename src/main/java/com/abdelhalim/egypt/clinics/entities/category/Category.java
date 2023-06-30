@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @Builder
@@ -24,7 +27,7 @@ public class Category {
     @Column(nullable = false)
     private String description;
 
-    @OneToOne(mappedBy = "category")
-    private Service service;
+    @OneToMany(mappedBy = "category")
+    private List<Service> services = new ArrayList<>();
 
 }

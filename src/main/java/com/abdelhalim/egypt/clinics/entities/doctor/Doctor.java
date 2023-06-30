@@ -27,7 +27,7 @@ public class Doctor {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "doctor")
     private List<Specialty> specialtyList = new ArrayList<>();
 
 //    @ManyToOne(fetch = FetchType.LAZY)
