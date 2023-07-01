@@ -2,6 +2,7 @@ package com.abdelhalim.egypt.clinics.entities.base_user;
 
 
 import com.abdelhalim.egypt.clinics.entities.address.Address;
+import com.abdelhalim.egypt.clinics.entities.token.Token;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -39,6 +40,8 @@ public class BaseUser implements UserDetails {
     @OneToMany(mappedBy = "baseUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addressList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "baseUser")
+    private List<Token> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
