@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.util.UUID;
-
 @Entity
 @DynamicUpdate
 @Data
@@ -18,7 +16,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Specialty {
     @Id
-    private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false, name = "name_ar")

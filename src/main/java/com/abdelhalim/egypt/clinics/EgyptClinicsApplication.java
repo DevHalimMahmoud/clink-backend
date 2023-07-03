@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import static com.abdelhalim.egypt.clinics.utils.ImageUtils.BUCKET_NAME;
+
 @SpringBootApplication()
 @EnableJpaRepositories
 public class EgyptClinicsApplication {
@@ -20,7 +22,7 @@ public class EgyptClinicsApplication {
             serviceAccount = new FileInputStream("firebase-adminsdk.json");
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setStorageBucket("clink-3b1fe.appspot.com")
+                    .setStorageBucket(BUCKET_NAME)
                     .build();
             FirebaseApp.initializeApp(options);
         } catch (IOException e) {

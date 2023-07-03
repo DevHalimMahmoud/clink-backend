@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,11 +13,10 @@ import java.util.List;
 public class RegisterRequestDto {
 
     private String name;
-    private String nameAr;
     private String image;
     private String phone;
+    private String email;
     private String password;
-    private List<Long> specialityIds;
     private Gender gender;
 
 }

@@ -1,4 +1,4 @@
-package com.abdelhalim.egypt.clinics.shared_models;
+package com.abdelhalim.egypt.clinics.api.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationRequest {
 
-    String password;
-    private String email;
+    private String password;
+    private String phone;
 }

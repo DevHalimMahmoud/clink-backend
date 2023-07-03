@@ -1,9 +1,9 @@
 package com.abdelhalim.egypt.clinics.api.user.controller;
 
+import com.abdelhalim.egypt.clinics.api.user.dto.AuthenticationRequest;
+import com.abdelhalim.egypt.clinics.api.user.dto.AuthenticationResponse;
 import com.abdelhalim.egypt.clinics.api.user.dto.RegisterRequestDto;
 import com.abdelhalim.egypt.clinics.api.user.service.UserService;
-import com.abdelhalim.egypt.clinics.shared_models.AuthenticationRequest;
-import com.abdelhalim.egypt.clinics.shared_models.AuthenticationResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

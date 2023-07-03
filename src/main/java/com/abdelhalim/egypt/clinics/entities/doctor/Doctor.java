@@ -19,6 +19,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Doctor {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
 
     @Column(nullable = false)

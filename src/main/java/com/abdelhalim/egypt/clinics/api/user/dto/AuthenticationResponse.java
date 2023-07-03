@@ -1,4 +1,4 @@
-package com.abdelhalim.egypt.clinics.shared_models;
+package com.abdelhalim.egypt.clinics.api.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

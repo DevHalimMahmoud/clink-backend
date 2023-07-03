@@ -4,8 +4,8 @@ import com.abdelhalim.egypt.clinics.api.specialty.dto.SpecialtyDto;
 import com.abdelhalim.egypt.clinics.api.specialty.mapper.SpecialtyMapper;
 import com.abdelhalim.egypt.clinics.entities.specialty.Specialty;
 import com.abdelhalim.egypt.clinics.entities.specialty.SpecialtyRepository;
-import com.abdelhalim.egypt.clinics.utils.Base64Utils;
 import com.abdelhalim.egypt.clinics.utils.ImageUtils;
+import com.abdelhalim.egypt.clinics.utils.RandomUtils;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
-import java.util.UUID;
 
 
 @Slf4j
@@ -33,24 +30,15 @@ public class SpecialtyService {
         Specialty entity = Specialty.builder()
                 .name(specialtyDto.getName())
                 .nameAr(specialtyDto.getNameAr())
-                .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
+                .image(ImageUtils.saveImageBase64(specialtyDto.getImage(), "specialty/" + RandomUtils.getRandomLong()))
                 .build();
 
-        try {
-            String extension = Base64Utils.getFileExtensionFromBase64(specialtyDto.getImage());
-            byte[] decodedBytes = Base64.getDecoder().decode(specialtyDto.getImage().split(",")[1]);
-
-            String url = ImageUtils.uploadObjectFromMemory("clink-3b1fe.appspot.com", "specialty/" + entity.getId(), decodedBytes, extension);
-            entity.setImage(url);
-            repository.save(entity);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        repository.save(entity);
 
     }
 
     public void deleteById(Long id) {
-        ImageUtils.deleteImage("clink-3b1fe.appspot.com", "specialty/" + id);
+        ImageUtils.deleteImage("specialty/" + id);
         repository.deleteById(id);
     }
 
@@ -70,18 +58,10 @@ public class SpecialtyService {
         Specialty specialty1 = repository.getReferenceById(specialty.getId());
         specialty1.setName(specialty.getName());
         specialty1.setNameAr(specialty.getNameAr());
+        specialty1.setImage(ImageUtils.saveImageBase64(specialty.getImage(), "specialty/" + RandomUtils.getRandomLong()));
 
-        try {
-            ImageUtils.deleteImage("clink-3b1fe.appspot.com", "specialty/" + specialty.getId());
-            String extension = Base64Utils.getFileExtensionFromBase64(specialty.getImage());
-            byte[] decodedBytes = Base64.getDecoder().decode(specialty.getImage().split(",")[1]);
+        repository.save(specialty);
 
-            String url = ImageUtils.uploadObjectFromMemory("clink-3b1fe.appspot.com", "specialty/" + specialty.getId(), decodedBytes, extension);
-            specialty1.setImage(url);
-            repository.save(specialty);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
     }
 }

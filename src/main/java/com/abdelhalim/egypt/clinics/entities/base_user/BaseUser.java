@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -20,7 +19,8 @@ import java.util.UUID;
 public class BaseUser implements UserDetails {
 
     @Id
-    private Long id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String name;

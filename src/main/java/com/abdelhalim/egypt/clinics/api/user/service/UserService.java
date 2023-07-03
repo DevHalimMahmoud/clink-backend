@@ -1,5 +1,7 @@
 package com.abdelhalim.egypt.clinics.api.user.service;
 
+import com.abdelhalim.egypt.clinics.api.user.dto.AuthenticationRequest;
+import com.abdelhalim.egypt.clinics.api.user.dto.AuthenticationResponse;
 import com.abdelhalim.egypt.clinics.api.user.dto.RegisterRequestDto;
 import com.abdelhalim.egypt.clinics.config.JwtService;
 import com.abdelhalim.egypt.clinics.entities.patient.Patient;
@@ -8,9 +10,8 @@ import com.abdelhalim.egypt.clinics.entities.specialty.SpecialtyRepository;
 import com.abdelhalim.egypt.clinics.entities.token.Token;
 import com.abdelhalim.egypt.clinics.entities.token.TokenRepository;
 import com.abdelhalim.egypt.clinics.entities.token.TokenType;
-import com.abdelhalim.egypt.clinics.shared_models.AuthenticationRequest;
-import com.abdelhalim.egypt.clinics.shared_models.AuthenticationResponse;
 import com.abdelhalim.egypt.clinics.utils.ImageUtils;
+import com.abdelhalim.egypt.clinics.utils.RandomUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,7 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -48,10 +48,10 @@ public class UserService {
         var user = new Patient();
         user.setName(request.getName());
         user.setPhone(request.getPhone());
+        user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setGender(request.getGender());
-        user.setId(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
-        user.setImageUrl(ImageUtils.saveImageBase64(request.getImage(), "user/" + user.getId()));
+        user.setImageUrl(ImageUtils.saveImageBase64(request.getImage(), "user/" + RandomUtils.getRandomLong()));
 
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -66,11 +66,11 @@ public class UserService {
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
+                        request.getPhone(),
                         request.getPassword()
                 )
         );
-        var user = repository.findByPhone(request.getEmail())
+        var user = repository.findByPhone(request.getPhone())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
