@@ -1,19 +1,20 @@
 package com.abdelhalim.egypt.clinics.entities.token;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TokenRepository extends JpaRepository<Token, Long> {
+public interface TokenRepository extends JpaRepository<Token, Long>, JpaSpecificationExecutor<Token> {
 
-    @Query(value = """
-            select t from Token t where t.expired = false or t.revoked = false\s
-            """)
-    List<Token> findAllValidTokenByUser(Long id);
+    List<Token> findAllByBaseUserIdAndExpiredFalseAndRevokedFalse(Long id);
+
+    List<Token> findAll(Specification<Token> specification);
+
 
     Optional<Token> findByToken(String token);
 }

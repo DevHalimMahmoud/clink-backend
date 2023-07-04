@@ -9,6 +9,7 @@ import com.abdelhalim.egypt.clinics.entities.patient.PatientRepository;
 import com.abdelhalim.egypt.clinics.entities.specialty.SpecialtyRepository;
 import com.abdelhalim.egypt.clinics.entities.token.Token;
 import com.abdelhalim.egypt.clinics.entities.token.TokenRepository;
+import com.abdelhalim.egypt.clinics.entities.token.TokenSpecifications;
 import com.abdelhalim.egypt.clinics.entities.token.TokenType;
 import com.abdelhalim.egypt.clinics.utils.ImageUtils;
 import com.abdelhalim.egypt.clinics.utils.RandomUtils;
@@ -88,12 +89,13 @@ public class UserService {
                 .tokenType(TokenType.BEARER)
                 .expired(false)
                 .revoked(false)
+                .baseUser(patient)
                 .build();
         tokenRepository.save(token);
     }
 
     private void revokeAllUserTokens(Patient patient) {
-        var validUserTokens = tokenRepository.findAllValidTokenByUser(patient.getId());
+        var validUserTokens = tokenRepository.findAll(TokenSpecifications.validTokensByUserId(patient.getId()));
         if (validUserTokens.isEmpty())
             return;
         validUserTokens.forEach(token -> {
