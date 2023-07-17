@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Laboratory extends BaseUser {
 
-    @OneToMany(mappedBy = "baseUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Service> serviceList = new ArrayList<>();
 
     @Override

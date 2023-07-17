@@ -9,6 +9,7 @@ public class TokenSpecifications {
     private TokenSpecifications() {
         // hide constructor
     }
+
     public static Specification<Token> validTokensByUserId(Long userId) {
         return (root, query, criteriaBuilder) -> {
             Predicate idPredicate = criteriaBuilder.equal(root.get("baseUser").get("id"), userId);
