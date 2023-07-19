@@ -23,7 +23,7 @@ public class Clinic extends BaseUser {
     @OneToMany(mappedBy = "baseUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Doctor> doctorList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "baseUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Service> serviceList = new ArrayList<>();
 
     @Override
