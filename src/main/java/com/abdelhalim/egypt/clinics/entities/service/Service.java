@@ -37,7 +37,7 @@ public class Service {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "service_user_join",
+            name = "service_clinic_lab_hospital_join",
             joinColumns = @JoinColumn(name = "service_id"),
             inverseJoinColumns = {
                     @JoinColumn(name = "user_id", referencedColumnName = "id")

@@ -31,20 +31,13 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private List<Specialty> specialtyList = new ArrayList<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "clinic_id")
-//    private Clinic clinic;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "hospital_id")
-//    private Hospital hospital;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "doctor_join",
+            name = "doctor_clinic_lab_hospital_join",
             joinColumns = @JoinColumn(name = "doctor_id"),
             inverseJoinColumns = {
-                    @JoinColumn(name = "base_user_id", referencedColumnName = "id")
+                    @JoinColumn(name = "user_id", referencedColumnName = "id")
             }
     )
     private BaseUser baseUser;
