@@ -33,6 +33,14 @@ server:
     accesslog:
       enabled: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
 
 
 
