@@ -25,7 +25,7 @@ public class BaseUser implements UserDetails {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column(nullable = false, unique = true, columnDefinition = "TEXT")
