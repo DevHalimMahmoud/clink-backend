@@ -34,7 +34,7 @@ public class BaseUser implements UserDetails {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String phone;
 
     @OneToMany(mappedBy = "baseUser", cascade = CascadeType.ALL, orphanRemoval = true)
