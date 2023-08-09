@@ -1,5 +1,6 @@
 package com.abdelhalim.egypt.clinics.config;
 
+import com.abdelhalim.egypt.clinics.entities.base_user.BaseUserRepository;
 import com.abdelhalim.egypt.clinics.entities.patient.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,12 +18,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final PatientRepository repository;
+    private final BaseUserRepository repository;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> repository.findByPhone(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return username -> repository.findByPhone(username).orElse(repository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found")));
     }
 
     @Bean
