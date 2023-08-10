@@ -1,7 +1,6 @@
 package com.abdelhalim.egypt.clinics.config;
 
 import com.abdelhalim.egypt.clinics.entities.base_user.BaseUserRepository;
-import com.abdelhalim.egypt.clinics.entities.patient.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
