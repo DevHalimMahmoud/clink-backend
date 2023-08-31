@@ -16,22 +16,26 @@ import java.util.List;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(indexes = {
+        @Index(name = "idx_phone", columnList = "phone", unique = true),
+        @Index(name = "idx_email", columnList = "email", unique = true)
+})
 public class BaseUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = true, columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column(nullable = false, unique = true, columnDefinition = "TEXT")
     private String email;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false, length = 100)
     private String password;
 
     @Column(nullable = false, unique = true)

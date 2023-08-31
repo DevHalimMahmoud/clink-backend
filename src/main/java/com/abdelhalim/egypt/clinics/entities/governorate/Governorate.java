@@ -17,14 +17,14 @@ import java.util.List;
 public class Governorate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String name;
-    @Column(nullable = false, name = "name_ar")
+    @Column(nullable = false, name = "name_ar", length = 50)
     private String nameAr;
 
-    @OneToMany(mappedBy = "governorate")
+    @OneToMany(mappedBy = "governorate", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addressSet;
 
 }

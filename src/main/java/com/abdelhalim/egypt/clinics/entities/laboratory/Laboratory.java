@@ -4,6 +4,7 @@ import com.abdelhalim.egypt.clinics.entities.base_user.BaseUser;
 import com.abdelhalim.egypt.clinics.entities.service.Service;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class Laboratory extends BaseUser {
 
-    @OneToMany(mappedBy = "baseUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "baseUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Service> serviceList = new ArrayList<>();
 
     @Override

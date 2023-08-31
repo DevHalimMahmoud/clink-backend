@@ -16,23 +16,23 @@ import org.hibernate.annotations.DynamicUpdate;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String latitude;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String longitude;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "governorate_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, optional = false, targetEntity = Governorate.class)
+    @JoinColumn(name = "governorate_id", nullable = false)
     private Governorate governorate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, optional = false, targetEntity = BaseUser.class)
     @JoinTable(
             name = "address_join",
             joinColumns = @JoinColumn(name = "address_id"),

@@ -48,7 +48,10 @@ management:
     env:
       enabled: true
 
-
+logging:
+  level:
+    org.hibernate.SQL: TRACE
+    org.hibernate.type: TRACE
 
 
 
